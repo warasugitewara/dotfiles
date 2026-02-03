@@ -20,14 +20,14 @@ return {
           return "Working in " .. opts.workspace
         end,
       },
-      buttons = {
-        {
-          label = "View Repository",
-          url = function(opts)
-            return opts.repo_url
-          end,
-        },
-      },
+      -- buttons = {
+      --   {
+      --     label = "View Repository",
+      --     url = function(opts)
+      --       return opts.repo_url
+      --     end,
+      --   },
+      -- },
     })
   end,
 }
