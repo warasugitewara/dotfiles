@@ -5,7 +5,7 @@ Windows 環境の個人用 dotfiles です。
 ## セットアップ
 
 ```bash
-git clone https://github.com/warasugitewara/dotfile ~/.config
+git clone https://github.com/warasugitewara/dotfiles ~/.config
 ```
 
 ## 内容
@@ -31,6 +31,7 @@ git clone https://github.com/warasugitewara/dotfile ~/.config
 ## ライセンス
 
 MIT
+
 
 
 
