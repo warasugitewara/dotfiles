@@ -2,6 +2,7 @@
 -- lua/plugins/cord.lua
 return {
   "vyfor/cord.nvim",
+  event = "VeryLazy",
   config = function()
     require("cord").setup({
       display = {

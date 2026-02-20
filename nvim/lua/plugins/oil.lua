@@ -1,7 +1,10 @@
 return {
   {
     "stevearc/oil.nvim",
-    opts = {},
+    cmd = "Oil",
+    keys = {
+      { "-", "<CMD>Oil<CR>", desc = "Open Oil file browser" },
+    },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup({
@@ -27,8 +30,6 @@ return {
         },
         use_default_keymaps = false,
       })
-
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { noremap = true, silent = true })
     end,
   },
 }

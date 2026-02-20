@@ -1,12 +1,6 @@
 return {
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("telescope").load_extension("fzf")
-    end,
-  },
+  -- telescope を無効化し snacks.picker に移行
+  { "nvim-telescope/telescope.nvim", enabled = false },
+  { "nvim-telescope/telescope-fzf-native.nvim", enabled = false },
+  { "nvim-lua/plenary.nvim", enabled = false },
 }

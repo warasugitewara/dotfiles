@@ -1,6 +1,7 @@
 -- lua/plugins/nvim-scrollbar.lua
 return {
   "petertriho/nvim-scrollbar",
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
     require("scrollbar").setup({
       show = true, -- スクロールバーを常に表示
