@@ -5,6 +5,13 @@ debug
 data
 lazy-lock.json
 
+# Shells
+nushell/history.txt
+nushell/vendor
+powershell/Modules/
+powershell/Scripts/
+powershell/PowerShell/
+
 # Sensitive data
 .local
 .cache
