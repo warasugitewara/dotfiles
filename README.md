@@ -1,34 +1,34 @@
 # dotfiles
 
-My personal dotfiles for Windows environment.
+Windows 環境の個人用 dotfiles です。
 
-## Setup
+## セットアップ
 
 ```bash
 git clone https://github.com/warasugitewara/dotfile ~/.config
 ```
 
-## Contents
+## 内容
 
-- **nvim** - Neovim configuration (LazyVim-based)
-- **nushell** - Nushell shell configuration
-- **powershell** - PowerShell configuration
-- **wezterm** - Terminal emulator config
-- **starship.toml** - Shell prompt configuration
-- **Other tools** - Configuration for raycast-x, scoop, thefuck, etc.
+- **nvim** - Neovim 設定 (LazyVim ベース)
+- **nushell** - Nushell シェル設定
+- **powershell** - PowerShell 設定
+- **wezterm** - ターミナルエミュレーター設定
+- **starship.toml** - シェルプロンプト設定
+- **その他** - raycast-x, scoop などの設定
 
-## Environment
+## 環境
 
 - OS: Windows
-- Shells: Nushell, PowerShell
-- Editor: Neovim
-- XDG Base Directory: Supported
+- シェル: Nushell, PowerShell
+- エディタ: Neovim
+- XDG Base Directory: 対応
 
-## Notes
+## 備考
 
-All configurations follow the XDG Base Directory Specification where applicable.
+すべての設定は XDG Base Directory Specification に準拠しています。
 
-## License
+## ライセンス
 
 MIT
 
