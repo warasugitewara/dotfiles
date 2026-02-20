@@ -11,15 +11,22 @@ git clone https://github.com/warasugitewara/dotfile ~/.config
 ## Contents
 
 - **nvim** - Neovim configuration (LazyVim-based)
+- **nushell** - Nushell shell configuration
+- **powershell** - PowerShell configuration
 - **wezterm** - Terminal emulator config
 - **starship.toml** - Shell prompt configuration
-- **Other tools** - Configuration for various CLI tools
+- **Other tools** - Configuration for raycast-x, scoop, thefuck, etc.
 
 ## Environment
 
 - OS: Windows
-- Shell: PowerShell
+- Shells: Nushell, PowerShell
 - Editor: Neovim
+- XDG Base Directory: Supported
+
+## Notes
+
+All configurations follow the XDG Base Directory Specification where applicable.
 
 ## License
 
