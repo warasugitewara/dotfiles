@@ -19,7 +19,7 @@ git clone https://github.com/warasugitewara/dotfile ~/.config
 
 ## 環境
 
-- OS: Windows
+- OS: Windows11
 - シェル: Nushell, PowerShell
 - エディタ: Neovim
 - XDG Base Directory: 対応
@@ -31,5 +31,6 @@ git clone https://github.com/warasugitewara/dotfile ~/.config
 ## ライセンス
 
 MIT
+
 
 
