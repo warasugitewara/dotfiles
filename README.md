@@ -15,7 +15,7 @@ git clone https://github.com/warasugitewara/dotfile ~/.config
 - **powershell** - PowerShell configuration
 - **wezterm** - Terminal emulator config
 - **starship.toml** - Shell prompt configuration
-- **Other tools** - Configuration for raycast-x, scoop, thefuck, etc.
+- **Other tools** - Configuration for , scoop, thefuck, etc.
 
 ## Environment
 
@@ -31,4 +31,5 @@ All configurations follow the XDG Base Directory Specification where applicable.
 ## License
 
 MIT
+
 
