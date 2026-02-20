@@ -6,9 +6,9 @@ config.automatically_reload_config = true
 config.font = wezterm.font("HackGen Console")
 config.font_size = 12.0
 config.use_ime = true
-config.window_background_opacity = 0.65
+config.window_background_opacity = 0.85
 
--- ★ Windows 明示指定（最重要）
+-- 使うターミナル
 config.default_prog = { "nu" }
 
 ----------------------------------------------------

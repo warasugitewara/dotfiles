@@ -1,8 +1,23 @@
-tt.*
-.tests
-doc/tags
+# nvim
+*.log
 debug
 .repro
-foo.*
-*.log
 data
+lazy-lock.json
+
+# Sensitive data
+.local
+.cache
+node_modules
+__pycache__
+
+# OS
+.DS_Store
+Thumbs.db
+
+# User-specific
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
