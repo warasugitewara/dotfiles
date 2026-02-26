@@ -23,7 +23,7 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 ## 環境
 
 - **OS**: Linux, macOS, Windows 11
-- **シェル**: Bash, Zsh, Nushell, PowerShell 7
+- **シェル**: Bash, Nushell, PowerShell 7
 - **エディタ**: Neovim
 - **ターミナル**: WezTerm
 - **スタイル**: Starship プロンプト
@@ -85,6 +85,7 @@ $PROFILE
 ## ライセンス
 
 MIT
+
 
 
 
