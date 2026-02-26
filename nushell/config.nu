@@ -18,9 +18,9 @@
 #     config nu --doc | nu-highlight | less -R
 
 # XDG Base Directory Specification
-$env.XDG_CONFIG_HOME = "C:\\Users\\waras\\.config"
-$env.XDG_DATA_HOME = "C:\\Users\\waras\\.local\\share"
-$env.XDG_CACHE_HOME = "C:\\Users\\waras\\.cache"
+$env.XDG_CONFIG_HOME = ($env.HOME | path join ".config")
+$env.XDG_DATA_HOME = ($env.HOME | path join ".local" "share")
+$env.XDG_CACHE_HOME = ($env.HOME | path join ".cache")
 
 $env.config.shell_integration.osc133 = false
 $env.config.show_banner = false
