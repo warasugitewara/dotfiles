@@ -2,7 +2,26 @@
 
 個人用dotfilesリポジトリ。Linux, macOS, Windows11 のクロスプラットフォーム対応。
 
-## セットアップ
+## クイックスタート
+
+### 環境構築（新しいマシンでの初期セットアップ）
+
+```bash
+# 1. dotfiles をクローン
+git clone https://github.com/warasugitewara/dotfiles ~/.config
+
+# 2. Homebrew インストール（まだの場合）
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 3. Brewfile から開発環境をインストール
+cd ~/.config
+brew bundle install
+
+# 4. シェルの再起動
+exec bash
+```
+
+### 設定ファイルのみ利用（既存環境の場合）
 
 ```bash
 git clone https://github.com/warasugitewara/dotfiles ~/.config
@@ -19,6 +38,7 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 | **thefuck** | thefuck コマンド修正ツール設定 |
 | **scoop** | Scoop パッケージマネージャー設定 (Windows) |
 | **starship.toml** | Starship プロンプト設定 (共通) |
+| **Brewfile** | Homebrew パッケージリスト（自動セットアップ用） |
 
 ## 環境
 
