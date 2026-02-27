@@ -1,6 +1,8 @@
 # dotfiles
 
-個人用dotfilesリポジトリ。Linux, macOS, Windows11 のクロスプラットフォーム対応。
+```text
+個人用dotfilesリポジトリ。私のメイン開発環境である、Debian13,windows11用のdotfiles+αです
+```
 
 ## クイックスタート
 
@@ -141,6 +143,7 @@ $PROFILE
 ## ライセンス
 
 MIT
+
 
 
 
