@@ -47,6 +47,7 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 | **docker/** | Docker設定 |
 | **pip/** | pip パッケージマネージャー設定 |
 | **bashrc.xdg-config** | XDG Base Directory 統合用 bashrc セクション |
+| **keymap/** | キーボードキーマップ（Mint60等） |
 
 ## 環境
 
