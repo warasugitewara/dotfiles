@@ -39,6 +39,14 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 | **scoop** | Scoop パッケージマネージャー設定 (Windows) |
 | **starship.toml** | Starship プロンプト設定 (共通) |
 | **Brewfile** | Homebrew パッケージリスト（自動セットアップ用） |
+| **python/** | Python設定 (PYTHONSTARTUP, pip) |
+| **ruby/** | Ruby設定 (IRB, Gem) |
+| **npm/** | npm設定 |
+| **go/** | Go設定 |
+| **git/** | Git設定 |
+| **docker/** | Docker設定 |
+| **pip/** | pip パッケージマネージャー設定 |
+| **bashrc.xdg-config** | XDG Base Directory 統合用 bashrc セクション |
 
 ## 環境
 
@@ -56,7 +64,34 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 XDG_CONFIG_HOME=~/.config      (設定ファイル)
 XDG_DATA_HOME=~/.local/share   (データファイル)
 XDG_CACHE_HOME=~/.cache        (キャッシュ)
+XDG_STATE_HOME=~/.local/state  (状態ファイル)
 ```
+
+### 開発ツール の XDG 統合
+
+このリポジトリでは、以下の開発ツールの設定を XDG に統合しています：
+
+| ツール | 設定ファイル | 環境変数 |
+|-------|-----------|--------|
+| **Python** | `python/pythonrc.py`, `pip/pip.conf` | `PYTHONSTARTUP`, `PYTHONUSERBASE` |
+| **Ruby** | `ruby/irbrc`, `ruby/gemrc` | `IRBRC`, `GEM_HOME` |
+| **npm** | `npm/npmrc` | `npm_config_userconfig` |
+| **Go** | `go/env` | `GOPATH`, `GOMODCACHE` |
+| **Git** | `git/config` | `GIT_CONFIG_GLOBAL` |
+| **Docker** | `docker/config.json` | `DOCKER_CONFIG` |
+| **PHP** | `php/php.ini` | `PHP_INI_SCAN_DIR` |
+
+### XDG 統合の有効化
+
+以下の設定を `~/.bashrc` に追加してください：
+
+```bash
+# bashrc.xdg-config ファイルの内容を ~/.bashrc に追加
+cat ~/.config/bashrc.xdg-config >> ~/.bashrc
+source ~/.bashrc
+```
+
+これにより、すべてのツールが `~/.config` 配下の設定を使用するようになります。
 
 ### Linux/macOS での動作確認方法
 

@@ -1,0 +1,15 @@
+# ~/.config/docker/config.json
+# Docker configuration file (XDG Base Directory)
+# Usage: export DOCKER_CONFIG=~/.config/docker
+
+{
+  "auths": {},
+  "psFormat": "table {{.ID}}\t{{.Image}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}",
+  "imagesFormat": "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.Size}}",
+  "detachKeys": "ctrl-p,ctrl-q",
+  "logDriver": "json-file",
+  "logOpts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}

@@ -1,0 +1,42 @@
+# ~/.config/git/config
+# Global git configuration (XDG Base Directory)
+# Usage: git config --global include.path ~/.config/git/config
+
+[user]
+    email = warasugitewarasabu@gmail.com
+    name = warasugitewara
+
+[credential "https://github.com"]
+    helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+    helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
+[core]
+    editor = nvim
+    pager = less -F
+    autocrlf = false
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = current
+
+[pull]
+    rebase = true
+
+[rebase]
+    autostash = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = log --graph --oneline --all

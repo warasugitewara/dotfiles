@@ -1,0 +1,10 @@
+# ~/.config/go/env
+# Go configuration file (XDG Base Directory)
+
+# Go modules caching
+export GOPATH=~/.config/go
+export GOMODCACHE=~/.cache/go/mod
+export GOCACHE=~/.cache/go/build
+
+# Go bin directory
+export GOBIN=~/.local/bin

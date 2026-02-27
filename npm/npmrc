@@ -1,0 +1,16 @@
+; ~/.config/npm/npmrc
+; npm configuration
+
+audit=true
+fund=true
+strict-ssl=true
+tag-version-prefix="v"
+init-license="MIT"
+
+; User config
+legacy-peer-deps=false
+prefer-offline=false
+prefer-online=false
+
+; Cache location (optional, can be set via env)
+; cache=~/.local/share/npm-cache
