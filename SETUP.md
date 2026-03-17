@@ -44,8 +44,8 @@
 
 ### PATH 設定（自動設定済み）
 ```bash
-/home/admin/.local/bin
-/home/admin/.cargo/bin
+~/.local/bin
+~/.cargo/bin
 /home/linuxbrew/.linuxbrew/opt/openjdk@21/bin
 /home/linuxbrew/.linuxbrew/bin
 /home/linuxbrew/.linuxbrew/sbin

@@ -52,9 +52,9 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 
 ## 環境
 
-- **OS**: Linux, macOS, Windows 11
-- **シェル**: Bash, Nushell, PowerShell 7
-- **エディタ**: Neovim
+- **OS**: Linux, Windows 11
+- **シェル**: Nushell, PowerShell 7
+- **エディタ**: Neovim (LazyVim)
 - **ターミナル**: WezTerm
 - **スタイル**: Starship プロンプト
 
@@ -81,7 +81,6 @@ XDG_STATE_HOME=~/.local/state  (状態ファイル)
 | **Go** | `go/env` | `GOPATH`, `GOMODCACHE` |
 | **Git** | `git/config` | `GIT_CONFIG_GLOBAL` |
 | **Docker** | `docker/config.json` | `DOCKER_CONFIG` |
-| **PHP** | `php/php.ini` | `PHP_INI_SCAN_DIR` |
 
 ### XDG 統合の有効化
 
@@ -95,15 +94,11 @@ source ~/.bashrc
 
 これにより、すべてのツールが `~/.config` 配下の設定を使用するようになります。
 
-### Linux/macOS での動作確認方法
+### Linux での動作確認方法
 
 ```bash
 # 設定の確認
 echo $XDG_CONFIG_HOME
-
-# シェル設定のロード
-source ~/.config/nushell/config.nu    # Nushell
-source ~/.config/powershell/...       # PowerShell 7 (pwsh)
 
 # Neovim の起動
 nvim
@@ -129,22 +124,29 @@ $PROFILE
 - **config/**: キーマップ、オプション、自動コマンド
 
 ### Nushell (`nushell/`)
-- **config.nu**: メイン設定ファイル
-- **env.nu**: 環境変数設定
+- **config.nu**: メイン設定ファイル（XDG変数、カスタムコマンド）
+- **env.nu**: 環境変数・エイリアス設定
 
 ### PowerShell (`powershell/`)
 - **Microsoft.PowerShell_profile.ps1**: プロファイル設定
 - **powershell.config.json**: PowerShell 設定
 
+### WezTerm (`wezterm/`)
+- **wezterm.lua**: メイン設定（フォント、カラー、タブ、キーバインド参照）
+- **keybinds.lua**: キーバインド定義
+
 ### Starship (`starship.toml`)
 シェルプロンプトのカスタマイズ。Git ブランチ表示、コマンド実行時間、ユーザー情報などを設定。
+
+### Git (`git/config`)
+グローバル Git 設定。クローン後にメールアドレスをローカルで設定してください：
+
+```bash
+git config --global user.email "your@email.com"
+```
 
 ## ライセンス
 
 MIT
-
-
-
-
 
 

@@ -3,7 +3,7 @@
 # Usage: git config --global include.path ~/.config/git/config
 
 [user]
-    email = warasugitewarasabu@gmail.com
+    # email: set locally with `git config --global user.email "your@email.com"`
     name = warasugitewara
 
 [credential "https://github.com"]

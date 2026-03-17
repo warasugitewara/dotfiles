@@ -17,21 +17,22 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-# use 'C:\Users\waras\Workspace\apple-music-controller\music.nu' *
 
 # XDG Base Directory Specification
-$env.XDG_CONFIG_HOME = "C:\\Users\\waras\\.config"
-$env.XDG_DATA_HOME = "C:\\Users\\waras\\.local\\share"
-$env.XDG_CACHE_HOME = "C:\\Users\\waras\\.cache"
+$env.XDG_CONFIG_HOME = ($nu.home-path | path join ".config")
+$env.XDG_DATA_HOME = ($nu.home-path | path join ".local" "share")
+$env.XDG_CACHE_HOME = ($nu.home-path | path join ".cache")
 
 # ================================================
 # calcpp - CLI Calculator Integration
 # ================================================
-alias calc = & 'C:\Users\waras\AppData\Local\Programs\calcpp\calcpp.exe'
+def calc [...args: string] {
+    let calcpp_path = $"($env.LOCALAPPDATA)\\Programs\\calcpp\\calcpp.exe"
+    ^$calcpp_path ...$args
+}
 
 def calc-with-precision [expr: string, --precision (-p): int = 15] {
-    let username = ($env.USERNAME)
-    let calcpp_path = $"C:\\Users\($username)\\AppData\\Local\\Programs\\calcpp\\calcpp.exe"
+    let calcpp_path = $"($env.LOCALAPPDATA)\\Programs\\calcpp\\calcpp.exe"
     
     if ($precision != 15) {
         ^$calcpp_path -p $precision $expr

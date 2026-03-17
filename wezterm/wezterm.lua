@@ -12,10 +12,11 @@ config.window_background_opacity = 0.75
 config.default_prog = { "nu" }
 
 -- XDG_CONFIG_HOME を .config に設定（nushell が .config から設定を読み込む）
+local home = wezterm.home_dir
 config.set_environment_variables = {
-	XDG_CONFIG_HOME = "C:\\Users\\waras\\.config",
-	XDG_DATA_HOME = "C:\\Users\\waras\\.local\\share",
-	XDG_CACHE_HOME = "C:\\Users\\waras\\.cache",
+	XDG_CONFIG_HOME = home .. "\\.config",
+	XDG_DATA_HOME = home .. "\\.local\\share",
+	XDG_CACHE_HOME = home .. "\\.cache",
 }
 
 ----------------------------------------------------

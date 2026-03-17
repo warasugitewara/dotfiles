@@ -1,9 +1,8 @@
 Invoke-Expression (&starship init powershell)
 $env:PYTHONIOENCODING="utf-8"
-$env:XDG_CONFIG_HOME="C:\Users\waras\.config"
-$env:XDG_DATA_HOME="C:\Users\waras\.local\share"
-$env:XDG_CACHE_HOME="C:\Users\waras\.cache"
-iex "$(thefuck --alias)"
+$env:XDG_CONFIG_HOME="$env:USERPROFILE\.config"
+$env:XDG_DATA_HOME="$env:USERPROFILE\.local\share"
+$env:XDG_CACHE_HOME="$env:USERPROFILE\.cache"
 # Sakura Editor shortcut
 function sakura {
     & "C:\Program Files (x86)\sakura\sakura.exe" $args
@@ -15,12 +14,12 @@ function vlc {
 
 # VLC Media Player shortcut
 function mpv {
-    & "C:\Users\waras\AppData\Local\Programs\mpv.net\mpvnet.exe" $args
+    & "$env:LOCALAPPDATA\Programs\mpv.net\mpvnet.exe" $args
 }
 
 # 短縮エイリアス（任意）
 Set-Alias se sakura
-Set-Alias sltrain "C:\Users\waras\sl\sl.exe"
+function sltrain { & "$env:USERPROFILE\sl\sl.exe" @args }
 
 #f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
 
@@ -60,10 +59,10 @@ Set-Alias -Name cc -Value calc -Scope Global -Force
 
 # Sushida CLI
 function sushida {
-    & "C:\Users\waras\Workspace\sushida-cli\target\release\sushida.exe" @args
+    & "$env:USERPROFILE\Workspace\sushida-cli\target\release\sushida.exe" @args
 }
 $env:Path = if ($env:Path -notlike "*Workspace\sushida-cli\target\release*") { 
-    $env:Path + ";C:\Users\waras\Workspace\sushida-cli\target\release" 
+    $env:Path + ";$env:USERPROFILE\Workspace\sushida-cli\target\release" 
 } else { 
     $env:Path 
 }
