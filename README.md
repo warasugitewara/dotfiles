@@ -37,7 +37,6 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 | **nushell** | Nushell シェル設定 |
 | **powershell** | PowerShell 設定 (Windows/PowerShell7) |
 | **wezterm** | WezTerm ターミナルエミュレーター設定 |
-| **thefuck** | thefuck コマンド修正ツール設定 |
 | **scoop** | Scoop パッケージマネージャー設定 (Windows) |
 | **starship.toml** | Starship プロンプト設定 (共通) |
 | **Brewfile** | Homebrew パッケージリスト（自動セットアップ用） |

@@ -17,7 +17,7 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 
-use 'C:\Users\waras\Workspace\apple-music-controller\music.nu' *
+# use 'C:\Users\waras\Workspace\apple-music-controller\music.nu' *
 
 # XDG Base Directory Specification
 $env.XDG_CONFIG_HOME = "C:\\Users\\waras\\.config"

@@ -3,13 +3,20 @@ local config = wezterm.config_builder()
 
 -- 基本
 config.automatically_reload_config = true
-config.font = wezterm.font("HackGen Console")
+config.font = wezterm.font("HackGen Console NF")
 config.font_size = 12.0
 config.use_ime = true
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.75
 
 -- 使うターミナル
 config.default_prog = { "nu" }
+
+-- XDG_CONFIG_HOME を .config に設定（nushell が .config から設定を読み込む）
+config.set_environment_variables = {
+	XDG_CONFIG_HOME = "C:\\Users\\waras\\.config",
+	XDG_DATA_HOME = "C:\\Users\\waras\\.local\\share",
+	XDG_CACHE_HOME = "C:\\Users\\waras\\.cache",
+}
 
 ----------------------------------------------------
 -- Tab
