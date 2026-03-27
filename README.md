@@ -37,6 +37,7 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 | **nushell** | Nushell シェル設定 |
 | **powershell** | PowerShell 設定 (Windows/PowerShell7) |
 | **wezterm** | WezTerm ターミナルエミュレーター設定 |
+| **zellij** | Zellij ターミナルマルチプレクサ設定 |
 | **scoop** | Scoop パッケージマネージャー設定 (Windows) |
 | **starship.toml** | Starship プロンプト設定 (共通) |
 | **Brewfile** | Homebrew パッケージリスト（自動セットアップ用） |
@@ -56,6 +57,7 @@ git clone https://github.com/warasugitewara/dotfiles ~/.config
 - **シェル**: Nushell, PowerShell 7
 - **エディタ**: Neovim (LazyVim)
 - **ターミナル**: WezTerm
+- **マルチプレクサ**: Zellij
 - **スタイル**: Starship プロンプト
 
 ## XDG Base Directory 対応
@@ -134,6 +136,9 @@ $PROFILE
 ### WezTerm (`wezterm/`)
 - **wezterm.lua**: メイン設定（フォント、カラー、タブ、キーバインド参照）
 - **keybinds.lua**: キーバインド定義
+
+### Zellij (`zellij/`)
+- **config.kdl**: メイン設定（UI、キーバインド、テーマ）
 
 ### Starship (`starship.toml`)
 シェルプロンプトのカスタマイズ。Git ブランチ表示、コマンド実行時間、ユーザー情報などを設定。
