@@ -1,0 +1,45 @@
+// Zellij Configuration
+// Wezterm keybinds に合わせた統一キーバインド
+
+ui {
+    pane_frame_type "round"
+}
+
+keybinds clear-defaults=true {
+    normal {
+        // Pane分割（Wezterm互換）
+        // Wezterm: LEADER + d = 縦分割、LEADER + r = 横分割
+        // Zellij: Alt + d = 縦分割（Right）、Alt + r = 横分割（Down）
+        bind "Alt d" { NewPane "Right"; }
+        bind "Alt r" { NewPane "Down"; }
+        
+        // Paneを閉じる（Wezterm互換: LEADER + x）
+        bind "Alt x" { CloseFocus; }
+        
+        // Pane移動（Wezterm互換: LEADER + hjkl）
+        bind "Alt h" { MoveFocusOrTab "Left"; }
+        bind "Alt j" { MoveFocusOrTab "Down"; }
+        bind "Alt k" { MoveFocusOrTab "Up"; }
+        bind "Alt l" { MoveFocusOrTab "Right"; }
+        
+        // Paneズーム表示（Wezterm互換: LEADER + z）
+        bind "Alt z" { ToggleFocusFullscreen; }
+        
+        // タブ操作
+        bind "Alt c" { NewTab; }
+        bind "Alt q" { CloseTab; }
+        bind "Alt w" { GoToPreviousTab; }
+        bind "Alt t" { GoToNextTab; }
+    }
+}
+
+// テーマ設定
+theme "default"
+
+// レイアウト設定
+default_layout "compact"
+default_tab_template {
+    pane size=1 borderless=true {
+        pane
+    }
+}
