@@ -1,7 +1,7 @@
 # dotfiles
 
 ```text
-個人用dotfilesリポジトリ。私のメイン開発環境である、Fedora KDE Plasma,windows11用のdotfiles+αです
+個人用dotfilesリポジトリ。私のメイン開発環境である、windows11,Ubuntu-Server用のdotfiles+αです
 面白いものがあればぜひ教えてください
 ```
 
