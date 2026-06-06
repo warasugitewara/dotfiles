@@ -1,151 +1,147 @@
 # dotfiles
 
-```text
-個人用dotfilesリポジトリ。私のメイン開発環境である、windows11,Ubuntu-Server用のdotfiles+αです
-面白いものがあればぜひ教えてください
-```
+個人用dotfilesリポジトリ。Windows 11 / Linux (Debian) の両環境で動作する設定ファイル群です。
+
+**設計方針**: Nushell / WezTerm / Starship を共通レイヤーとし、OSごとの設定分岐を最小限に抑える。
 
 ## クイックスタート
 
-### 環境構築（新しいマシンでの初期セットアップ）
+### Windows
+
+```powershell
+# 1. dotfiles をクローン
+git clone https://github.com/warasugitewara/dotfiles $HOME\.config
+
+# 2. Nushell / WezTerm / Starship をインストール（Scoopを使用）
+scoop install nushell wezterm starship
+```
+
+### Linux (Debian/Ubuntu)
 
 ```bash
 # 1. dotfiles をクローン
 git clone https://github.com/warasugitewara/dotfiles ~/.config
 
-# 2. Homebrew インストール（まだの場合）
+# 2. Homebrew + Brewfile からパッケージをインストール
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+cd ~/.config/linux && brew bundle install
 
-# 3. Brewfile から開発環境をインストール
-cd ~/.config
-brew bundle install
-
-# 4. シェルの再起動
+# 3. シェルを再起動
 exec bash
 ```
 
-### 設定ファイルのみ利用（既存環境の場合）
+## ディレクトリ構成
 
-```bash
-git clone https://github.com/warasugitewara/dotfiles ~/.config
+```
+.config/
+├── nushell/            # Nushell 設定 (Windows / Linux 共通)
+├── nvim/               # Neovim 設定 (LazyVim ベース, 共通)
+├── wezterm/            # WezTerm 設定 (共通)
+├── starship.toml       # Starship プロンプト設定 (共通)
+├── git/                # Git グローバル設定 (共通)
+├── keymap/             # キーボードキーマップ (Mint60, A75)
+├── powershell/         # PowerShell 設定 (Windows 専用)
+├── scoop/              # Scoop パッケージマネージャー設定 (Windows 専用)
+├── docker/             # Docker 設定 (共通)
+├── python/             # Python 設定 (共通)
+├── ruby/               # Ruby 設定 (共通)
+├── npm/                # npm 設定 (共通)
+├── go/                 # Go 設定 (共通)
+├── pip/                # pip 設定 (共通)
+└── linux/              # Linux 専用
+    ├── Brewfile        # Homebrew パッケージリスト
+    ├── bashrc.xdg-config  # XDG 統合用 bashrc セクション
+    ├── SETUP.md        # Linux 環境構築ガイド
+    └── zellij/         # Zellij ターミナルマルチプレクサ設定
 ```
 
-## 構成
+## 主な設定
 
-| ディレクトリ | 説明 |
+### Nushell (`nushell/`)
+
+| ファイル | 説明 |
+|---------|------|
+| `config.nu` | メイン設定。XDG変数、カスタムコマンド (`llm`, `ai`, `fcc`, `fuck`) |
+| `env.nu` | 環境変数・エイリアス。calcpp統合、Headroom Proxyアドレス |
+
+**カスタムコマンド:**
+
+| コマンド | 説明 |
+|---------|------|
+| `llm [prompt]` | deepseek-r1:8b via Ollama を起動 |
+| `ai` | Aider + llm-router 経由で起動（オンライン: Claude Sonnet、オフライン: deepseek-r1:8b） |
+| `fcc [...args]` | Claude Code を Nvidia NIM プロキシ経由で起動 |
+| `fuck` | thefuck 統合 |
+| `calc [expr]` | calcpp CLI 電卓 (Windows) |
+
+### Neovim (`nvim/`)
+
+LazyVim ベース。主なプラグイン:
+
+| プラグイン | 説明 |
 |-----------|------|
-| **nvim** | Neovim 設定 (LazyVim ベース) |
-| **nushell** | Nushell シェル設定 |
-| **powershell** | PowerShell 設定 (Windows/PowerShell7) |
-| **wezterm** | WezTerm ターミナルエミュレーター設定 |
-| **zellij** | Zellij ターミナルマルチプレクサ設定 |
-| **scoop** | Scoop パッケージマネージャー設定 (Windows) |
-| **starship.toml** | Starship プロンプト設定 (共通) |
-| **Brewfile** | Homebrew パッケージリスト（自動セットアップ用） |
-| **python/** | Python設定 (PYTHONSTARTUP, pip) |
-| **ruby/** | Ruby設定 (IRB, Gem) |
-| **npm/** | npm設定 |
-| **go/** | Go設定 |
-| **git/** | Git設定 |
-| **docker/** | Docker設定 |
-| **pip/** | pip パッケージマネージャー設定 |
-| **bashrc.xdg-config** | XDG Base Directory 統合用 bashrc セクション |
-| **keymap/** | キーボードキーマップ（Mint60等） |
+| `telescope.lua` | ファジーファインダー |
+| `oil.lua` | ファイラー |
+| `copilot.lua` | GitHub Copilot |
+| `cord.lua` | Discord Rich Presence |
+| `markview.lua` | Markdown プレビュー |
+| `nvim-java.lua` | Java LSP |
+| `tokyonight.lua` | カラーテーマ |
 
-## 環境
+### WezTerm (`wezterm/`)
 
-- **OS**: Linux, Windows 11
-- **シェル**: Nushell, PowerShell 7
-- **エディタ**: Neovim (LazyVim)
-- **ターミナル**: WezTerm
-- **マルチプレクサ**: Zellij
-- **スタイル**: Starship プロンプト
+| ファイル | 説明 |
+|---------|------|
+| `wezterm.lua` | フォント (HackGen Console NF)、カラー、タブ設定 |
+| `keybinds.lua` | vim スタイルのキーバインド (Ctrl-Q リーダー) |
+
+### PowerShell (`powershell/`) — Windows 専用
+
+| ファイル | 説明 |
+|---------|------|
+| `Microsoft.PowerShell_profile.ps1` | プロファイル設定 |
+| `powershell.config.json` | PowerShell 設定 |
 
 ## XDG Base Directory 対応
 
-すべての設定は XDG Base Directory Specification に準拠しており、以下の環境変数で管理されます：
+すべての設定は XDG Base Directory Specification に準拠:
 
 ```
-XDG_CONFIG_HOME=~/.config      (設定ファイル)
-XDG_DATA_HOME=~/.local/share   (データファイル)
-XDG_CACHE_HOME=~/.cache        (キャッシュ)
-XDG_STATE_HOME=~/.local/state  (状態ファイル)
+XDG_CONFIG_HOME = ~/.config      (設定ファイル)
+XDG_DATA_HOME   = ~/.local/share (データファイル)
+XDG_CACHE_HOME  = ~/.cache       (キャッシュ)
 ```
-
-### 開発ツール の XDG 統合
-
-このリポジトリでは、以下の開発ツールの設定を XDG に統合しています：
 
 | ツール | 設定ファイル | 環境変数 |
-|-------|-----------|--------|
-| **Python** | `python/pythonrc.py`, `pip/pip.conf` | `PYTHONSTARTUP`, `PYTHONUSERBASE` |
-| **Ruby** | `ruby/irbrc`, `ruby/gemrc` | `IRBRC`, `GEM_HOME` |
-| **npm** | `npm/npmrc` | `npm_config_userconfig` |
-| **Go** | `go/env` | `GOPATH`, `GOMODCACHE` |
-| **Git** | `git/config` | `GIT_CONFIG_GLOBAL` |
-| **Docker** | `docker/config.json` | `DOCKER_CONFIG` |
+|-------|------------|---------|
+| Python | `python/pythonrc.py`, `pip/pip.conf` | `PYTHONSTARTUP` |
+| Ruby | `ruby/irbrc`, `ruby/gemrc` | `IRBRC`, `GEM_HOME` |
+| npm | `npm/npmrc` | `npm_config_userconfig` |
+| Go | `go/env` | `GOPATH`, `GOMODCACHE` |
+| Git | `git/config` | `GIT_CONFIG_GLOBAL` |
+| Docker | `docker/config.json` | `DOCKER_CONFIG` |
 
-### XDG 統合の有効化
-
-以下の設定を `~/.bashrc` に追加してください：
+### Linux での XDG 統合有効化
 
 ```bash
-# bashrc.xdg-config ファイルの内容を ~/.bashrc に追加
-cat ~/.config/bashrc.xdg-config >> ~/.bashrc
+cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc
 source ~/.bashrc
 ```
 
-これにより、すべてのツールが `~/.config` 配下の設定を使用するようになります。
+## 環境
 
-### Linux での動作確認方法
+| 項目 | 内容 |
+|-----|------|
+| OS | Windows 11 / Linux (Debian) |
+| シェル | Nushell (共通), PowerShell 7 (Windows) |
+| エディタ | Neovim (LazyVim) |
+| ターミナル | WezTerm |
+| プロンプト | Starship |
+| マルチプレクサ | Zellij (Linux) |
 
-```bash
-# 設定の確認
-echo $XDG_CONFIG_HOME
+## Git グローバル設定
 
-# Neovim の起動
-nvim
-```
-
-### Windows での動作確認方法
-
-PowerShell 7 (`pwsh`) の場合：
-
-```powershell
-# プロファイルロード確認
-$PROFILE
-
-# または手動でロード
-. $PROFILE
-```
-
-## 主な設定ファイル
-
-### Neovim (`nvim/`)
-- **lazy.lua**: プラグインマネージャー LazyVim 設定
-- **plugins/**: 各プラグインの個別設定
-- **config/**: キーマップ、オプション、自動コマンド
-
-### Nushell (`nushell/`)
-- **config.nu**: メイン設定ファイル（XDG変数、カスタムコマンド）
-- **env.nu**: 環境変数・エイリアス設定
-
-### PowerShell (`powershell/`)
-- **Microsoft.PowerShell_profile.ps1**: プロファイル設定
-- **powershell.config.json**: PowerShell 設定
-
-### WezTerm (`wezterm/`)
-- **wezterm.lua**: メイン設定（フォント、カラー、タブ、キーバインド参照）
-- **keybinds.lua**: キーバインド定義
-
-### Zellij (`zellij/`)
-- **config.kdl**: メイン設定（UI、キーバインド、テーマ）
-
-### Starship (`starship.toml`)
-シェルプロンプトのカスタマイズ。Git ブランチ表示、コマンド実行時間、ユーザー情報などを設定。
-
-### Git (`git/config`)
-グローバル Git 設定。クローン後にメールアドレスをローカルで設定してください：
+クローン後、メールアドレスをローカルで設定:
 
 ```bash
 git config --global user.email "your@email.com"
@@ -154,5 +150,3 @@ git config --global user.email "your@email.com"
 ## ライセンス
 
 MIT
-
-

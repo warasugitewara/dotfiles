@@ -15,6 +15,8 @@ powershell/history.txt
 # Runtime directories
 .local/
 .cache/
+cache/
+logs/
 
 # Node/Python
 node_modules/
@@ -42,3 +44,34 @@ Thumbs.db
 # Temporary
 .repro/
 debug/
+
+# Claude Code
+.claude/
+.claude.json
+.claude-monitor/
+
+# AI assistants / credentials
+.aider
+.aider.chat.history.md
+.aider.tags.cache.v*/
+.copilot/
+.gemini/
+github-copilot/
+
+# Authentication & secrets
+gh/
+auth.db
+auth.db-shm
+auth.db-wal
+
+# Android
+.android/
+debug.keystore
+debug.keystore.lock
+
+# App-specific runtime files
+cagent/
+.cagent_first_run
+raycast-x/
+apps.json
+versions.json

@@ -7,7 +7,7 @@
 # (or import) custom commands, or run any other startup tasks.
 # See https://www.nushell.sh/book/configuration.html
 #
-# Nushell sets "sensible defaults" for most configuration settings, 
+# Nushell sets "sensible defaults" for most configuration settings,
 # so your `config.nu` only needs to override these defaults if desired.
 #
 # You can open this file in your default editor using:
@@ -25,21 +25,63 @@ $env.XDG_CACHE_HOME = ($nu.home-path | path join ".cache")
 $env.config.shell_integration.osc133 = false
 $env.config.show_banner = false
 $env.config.render_right_prompt_on_last_line = true
-# Enable ANSI colors and VT100 support
 $env.config.use_kitty_protocol = false
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
 # ================================================
-# llm - qwen2.5-coder:7b via Ollama
+# fuck - thefuck integration
+# ================================================
+def fuck [args?: string] {
+    let last_command = (
+        history
+        | reverse
+        | first 1
+        | select command
+        | get command.0
+    )
+    let result = (thefuck $last_command | str trim)
+
+    if ($result != "No fucks given" and ($result | str length) > 0) {
+        nu -c $result
+    } else {
+        if ($last_command =~ 'not found') {
+            print "💡 Command suggestions:"
+            print "  • java: Set JAVA_HOME or download from adoptopenjdk.net"
+            print "  • python: Use `py` or install from python.org"
+            print "  • node/npm: Download Node.js from nodejs.org"
+            print "  • ruby: Download from ruby-lang.org"
+            print "  • go: Download from golang.org"
+            print "  • docker: Download from docker.com"
+        } else {
+            print "No fucks given"
+        }
+    }
+}
+
+# ================================================
+# fcc - Claude Code を Nvidia NIM プロキシ経由で起動 (Windows)
+#   proxy: 192.168.0.100:8082
+# ================================================
+def "fcc" [...args] {
+    with-env {
+        ANTHROPIC_BASE_URL: "http://192.168.0.100:8082",
+        ANTHROPIC_AUTH_TOKEN: "freecc"
+    } {
+        ^claude ...$args
+    }
+}
+
+# ================================================
+# llm - deepseek-r1:8b via Ollama (2026-06 upgrade)
+#   旧: qwen2.5-coder:7b → 新: deepseek-r1:8b
+#   HumanEval ~62%, 思考モード付き, ~5GB VRAM
 # ================================================
 def llm [...args: string] {
     let ollama_running = (try {
         http get "http://localhost:11434"
         true
-    } catch {
-        false
-    })
+    } catch { false })
 
     if $ollama_running == false {
         print "⏳ Ollamaを起動中..."
@@ -47,55 +89,67 @@ def llm [...args: string] {
         sleep 3sec
     }
 
-    print "🤖 qwen2.5-coder:7b を読み込み中（数秒かかります）..."
+    print "🤖 deepseek-r1:8b を読み込み中..."
 
     if ($args | is-empty) {
-        ^ollama run qwen2.5-coder:7b
+        ^ollama run deepseek-r1:8b
     } else {
-        ^ollama run qwen2.5-coder:7b ($args | str join " ")
+        ^ollama run deepseek-r1:8b ($args | str join " ")
     }
 }
 
+# ================================================
+# ai - Aider + llm-router
+#   オンライン: Claude Sonnet via Headroom Proxy (192.168.1.30:8787)
+#              OAuth トークンを ~/.claude/.credentials.json から自動取得
+#   オフライン: deepseek-r1:8b via local Ollama
+#   設定: ~/llm-router/.env
+# ================================================
 def ai [] {
-
     let router_port = 4001
-    let ollama_port = 11434
-    let router_dir = "~/llm-router"
+    let ollama_port  = 11434
+    let router_dir   = ($nu.home-path | path join "llm-router")
+    let aider_bin    = ($nu.home-path | path join ".local" "bin" "aider.exe")
 
-    # Ollama確認
     let ollama_running = (try {
         http get $"http://localhost:($ollama_port)"
         true
-    } catch {
-        false
-    })
+    } catch { false })
 
     if $ollama_running == false {
-        print "Starting Ollama..."
+        print "⏳ Ollama起動中..."
         ^cmd /c start "" ollama serve
         sleep 2sec
     }
 
-    # Router確認
     let router_running = (try {
         http get $"http://localhost:($router_port)/v1/models"
         true
-    } catch {
-        false
-    })
+    } catch { false })
 
     if $router_running == false {
+        print "🔀 Router起動中..."
+        ^cmd /c start "" /d $router_dir uvicorn router_server:app --host 0.0.0.0 --port 4001
+        sleep 3sec
 
-        print "Starting Router..."
+        let ready = (try {
+            http get $"http://localhost:($router_port)/v1/models"
+            true
+        } catch { false })
 
-        cd $router_dir
-
-        ^cmd /c start "" uvicorn router_server:app --host 0.0.0.0 --port 4001
-
-        sleep 2sec
+        if $ready == false {
+            print "❌ Router起動失敗。~/llm-router/ を確認してください"
+            return
+        }
     }
 
-    print "Starting Aider..."
+    let route = (try {
+        http get $"http://localhost:($router_port)/v1/models"
+        | get data.0.description
+    } catch { "unknown" })
 
-    aider --model openai/router --openai-api-base $"http://localhost:($router_port)/v1" --openai-api-key dummy
+    print $"✅ Route: ($route)"
+    print "🤖 Aider起動中..."
+
+    ^$aider_bin --model openai/router --openai-api-base $"http://localhost:($router_port)/v1" --openai-api-key dummy
 }
