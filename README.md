@@ -133,11 +133,11 @@ source ~/.bashrc
 | 項目 | 内容 |
 |-----|------|
 | OS | Windows 11 / Linux (Debian) |
-| シェル | Nushell (共通), PowerShell 7 (Windows) |
+| シェル | Nushell (共通), pwsh7,bash |
 | エディタ | Neovim (LazyVim) |
 | ターミナル | WezTerm |
 | プロンプト | Starship |
-| マルチプレクサ | Zellij (Linux) |
+| マルチプレクサ | Zellij (一部のLinuxのみ) |
 
 ## Git グローバル設定
 
