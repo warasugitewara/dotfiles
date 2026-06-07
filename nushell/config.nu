@@ -153,3 +153,14 @@ def ai [] {
 
     ^$aider_bin --model openai/router --openai-api-base $"http://localhost:($router_port)/v1" --openai-api-key dummy
 }
+
+# typo aliases ＋α
+alias ks = ls
+alias claer = clear
+alias claeer = clear
+alias caler = clear
+alias cleaer = clear
+alias claera = clear
+alias caer = clear
+alias lcaer = clear
+alias cr = clear
