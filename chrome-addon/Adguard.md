@@ -16,3 +16,5 @@ www.youtube.com##yt-tab-shape:has-text(/^ショート$/)
 www.youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(Shorts))
 www.youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(ショート))
  ```
+# Adguard Home DNS (ブロックするサービス)
+<img width="1032" height="602" alt="Screenshot 2026-06-08 02 43 42" src="https://github.com/user-attachments/assets/5617e5ad-6f11-486a-8a07-dd5a3663bf2d" />
