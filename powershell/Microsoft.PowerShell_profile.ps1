@@ -3,6 +3,7 @@ $env:PYTHONIOENCODING="utf-8"
 $env:XDG_CONFIG_HOME="$env:USERPROFILE\.config"
 $env:XDG_DATA_HOME="$env:USERPROFILE\.local\share"
 $env:XDG_CACHE_HOME="$env:USERPROFILE\.cache"
+iex "$(thefuck --alias)"
 # Sakura Editor shortcut
 function sakura {
     & "C:\Program Files (x86)\sakura\sakura.exe" $args

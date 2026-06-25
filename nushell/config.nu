@@ -49,6 +49,7 @@ def fuck [args?: string] {
             print "💡 Command suggestions:"
             print "  • java: Set JAVA_HOME or download from adoptopenjdk.net"
             print "  • python: Use `py` or install from python.org"
+            print "  • python3: Use `py -3` or install Python"
             print "  • node/npm: Download Node.js from nodejs.org"
             print "  • ruby: Download from ruby-lang.org"
             print "  • go: Download from golang.org"
@@ -154,6 +155,18 @@ def ai [] {
     ^$aider_bin --model openai/router --openai-api-base $"http://localhost:($router_port)/v1" --openai-api-key dummy
 }
 
+# ================================================
+# btop - Windows では btop4win、Linux/macOS では native btop を呼ぶ
+#   (^ で外部コマンドを強制し、この def 自身への再帰を回避)
+# ================================================
+def --wrapped btop [...rest] {
+    if $nu.os-info.name == "windows" {
+        ^btop4win ...$rest
+    } else {
+        ^btop ...$rest
+    }
+}
+
 # typo aliases ＋α
 alias ks = ls
 alias claer = clear
@@ -164,3 +177,7 @@ alias claera = clear
 alias caer = clear
 alias lcaer = clear
 alias cr = clear
+alias cat = bat
+alias quit = exit
+alias :q = exit
+alias :q! = exit

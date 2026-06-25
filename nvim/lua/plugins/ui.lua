@@ -19,7 +19,7 @@ return {
             { icon = " ", key = "w", desc = "Find Word", action = ":lua Snacks.picker.grep()" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
             { icon = " ", key = "e", desc = "File Browser", action = ":Oil" },
-            { icon = " ", key = "c", desc = ".config", action = ":lua Snacks.picker.files({ cwd = vim.fn.expand('~/.config') })" },
+            { icon = " ", key = "c", desc = ".config", action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })" },
             { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },

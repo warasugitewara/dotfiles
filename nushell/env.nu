@@ -40,3 +40,15 @@ def calc-with-precision [expr: string, --precision (-p): int = 15] {
 # Claude Headroom proxy (192.168.1.30:8787)
 # ================================================
 $env.ANTHROPIC_BASE_URL = "http://192.168.1.30:8787"
+
+# ================================================
+# btop4win path (Windows のみ。Linux/macOS では native btop を使用)
+# ================================================
+if $nu.os-info.name == "windows" {
+    $env.PATH = (
+        $env.PATH
+        | split row (char esep)
+        | append 'C:\Users\waras\AppData\Local\Microsoft\WinGet\Packages\aristocratos.btop4win_Microsoft.Winget.Source_8wekyb3d8bbwe\btop4win'
+        | uniq
+    )
+}
