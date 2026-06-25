@@ -30,10 +30,9 @@
 | --- | --- | --- |
 | **terminal** | [WezTerm](https://wezfurlong.org/wezterm/) | 共通 |
 | **shell** | [Nushell](https://www.nushell.sh/) | 共通 |
-| | [PowerShell 7](https://learn.microsoft.com/powershell/) | Windows |
 | **editor** | [Neovim](https://neovim.io/) ([LazyVim](https://www.lazyvim.org/)) | 共通 |
 | **prompt** | [Starship](https://starship.rs/) | 共通 |
-| **multiplexer** | [Zellij](https://zellij.dev/) | Linux |
+| **multiplexer** | [Zellij](https://zellij.dev/) | 一部Linux |
 
 ### Settings
 
