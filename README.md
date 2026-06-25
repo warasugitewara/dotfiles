@@ -13,7 +13,7 @@
 <!-- スクショ/GIF は後日追加予定: <img src="images/preview.png" alt="preview" width="850"/> -->
 
 ![Platform](https://img.shields.io/badge/platform-Windows%2011%20%7C%20Linux-1f6feb?style=flat-square)
-![Shell](https://img.shields.io/badge/shell-Nushell%20%7C%20PowerShell-4e9a06?style=flat-square)
+![Shell](https://img.shields.io/badge/shell-Nushell-4e9a06?style=flat-square)
 ![Editor](https://img.shields.io/badge/editor-Neovim-57A143?style=flat-square&logo=neovim&logoColor=white)
 ![Terminal](https://img.shields.io/badge/terminal-WezTerm-4E49EE?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
