@@ -39,7 +39,6 @@
 - WezTerm &nbsp;→&nbsp; [`wezterm/`](https://github.com/warasugitewara/dotfiles/tree/main/wezterm)
 - Nushell &nbsp;→&nbsp; [`nushell/`](https://github.com/warasugitewara/dotfiles/tree/main/nushell)
 - Neovim &nbsp;→&nbsp; [`nvim/`](https://github.com/warasugitewara/dotfiles/tree/main/nvim)
-- PowerShell &nbsp;→&nbsp; [`powershell/`](https://github.com/warasugitewara/dotfiles/tree/main/powershell)
 - Starship &nbsp;→&nbsp; [`starship.toml`](https://github.com/warasugitewara/dotfiles/blob/main/starship.toml)
 - Linux 専用 &nbsp;→&nbsp; [`linux/`](https://github.com/warasugitewara/dotfiles/tree/main/linux)
 
