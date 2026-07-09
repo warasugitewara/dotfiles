@@ -1,14 +1,12 @@
 # Homebrew Bundle Brewfile
 # Usage: brew bundle install (or brew bundle install --file=~/dotfiles/Brewfile)
 
-tap "homebrew/cask"
-
 # 言語・ランタイム
 brew "go"
 brew "ruby"
 brew "python@3.14"
 brew "node"
-brew "openjdk@21"
+# Java (GraalVM) は Homebrew では配布されていないため公式アーカイブを使用 (SETUP.md 参照)
 
 # 開発ツール
 brew "git"

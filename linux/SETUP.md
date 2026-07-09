@@ -11,9 +11,11 @@
 | **Go** | 1.26.0 | `brew install go` |
 | **Ruby** | 4.0.1 | `brew install ruby` |
 | **Node.js** | 25.6.1 | `brew install node` |
-| **Rust** | 1.93.1 | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` |
-| **Java** | GraalVM 25.0.2 | `brew install openjdk@21` |
+| **Rust** | 1.93.1 | `brew install rustup-init` 後に `rustup-init` を実行 |
+| **Java** | GraalVM 25.0.2 | 公式アーカイブを展開（[GraalVM のインストール](#graalvm-のインストール)参照） |
 | **PHP** | 8.5.3 | `brew install php` |
+
+> バージョンは動作確認時点のものです。Homebrew 経由のパッケージは `brew upgrade` で更新されるため、目安として扱ってください。
 
 ### 開発ツール
 | ツール | バージョン | 説明 |
@@ -40,35 +42,50 @@
 | **pip/venv** | Python パッケージ管理・仮想環境 |
 | **Cargo** | Rust パッケージマネージャ |
 
+## GraalVM のインストール
+
+GraalVM は Linux 版 Homebrew では配布されていないため、[公式ダウンロードページ](https://www.graalvm.org/downloads/)のアーカイブを展開して使います。
+
+```bash
+# GraalVM for JDK 25 (Linux x64) を取得・展開
+curl -LO https://download.oracle.com/graalvm/25/latest/graalvm-jdk-25_linux-x64_bin.tar.gz
+mkdir -p ~/.local/share/java
+tar -xzf graalvm-jdk-25_linux-x64_bin.tar.gz -C ~/.local/share/java
+
+# ~/.bashrc に追記（ディレクトリ名は展開されたものに合わせる）
+export JAVA_HOME="$HOME/.local/share/java/graalvm-jdk-25.0.2+XX.X"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# 確認
+java --version
+```
+
 ## 環境変数設定
 
-### PATH 設定（自動設定済み）
-```bash
-~/.local/bin
-~/.cargo/bin
-/home/linuxbrew/.linuxbrew/opt/openjdk@21/bin
-/home/linuxbrew/.linuxbrew/bin
-/home/linuxbrew/.linuxbrew/sbin
-/usr/local/bin
-/usr/bin
-/bin
-/usr/local/games
-/usr/games
-```
+### PATH 設定
+
+| パス | 追加元 |
+|------|-------|
+| `~/.local/bin` | Debian 標準の `~/.profile` |
+| `~/.local/share/cargo/bin` | rustup（`CARGO_HOME` を XDG 準拠に移動済みのため `~/.cargo/bin` ではない） |
+| `~/.local/share/ruby/gems/bin` | `linux/bashrc.xdg-config`（`GEM_HOME`） |
+| `$JAVA_HOME/bin`（GraalVM） | `~/.bashrc` に手動追記（上記参照） |
+| `/home/linuxbrew/.linuxbrew/bin`<br>`/home/linuxbrew/.linuxbrew/sbin` | `brew shellenv`（Homebrew インストーラの案内どおり `~/.bashrc` に追記） |
 
 ### XDG Base Directory（Dotfiles 対応）
 ```bash
 XDG_CONFIG_HOME=~/.config      # 設定ファイル
 XDG_DATA_HOME=~/.local/share   # データファイル
 XDG_CACHE_HOME=~/.cache        # キャッシュ
+XDG_STATE_HOME=~/.local/state  # 状態・ログ（npm ログなど）
 ```
 
 ## セットアップスクリプト利用方法
 
 ### 自動セットアップ
 ```bash
-# dotfiles ディレクトリに移動
-cd ~/.config
+# Brewfile のあるディレクトリに移動
+cd ~/.config/linux
 
 # Brewfile から全パッケージをインストール
 brew bundle install
@@ -96,6 +113,7 @@ python3 --version
 node --version
 npm --version
 php --version
+java --version
 
 # Rust 確認
 cargo --version
@@ -121,6 +139,8 @@ eza --version
 | **Starship** | `~/.config/starship.toml` | プロンプト設定 |
 | **Nushell** | `~/.config/nushell/config.nu` | シェル設定 |
 | **WezTerm** | `~/.config/wezterm/` | ターミナル設定 |
+| **Zellij** | `~/.config/zellij/config.kdl` | マルチプレクサ設定 |
+| **Git** | `~/.config/git/config` | `GIT_CONFIG_GLOBAL` で指定 |
 | **PowerShell** | `~/.config/powershell/` | Windows 用設定 |
 
 ## トラブルシューティング
@@ -151,6 +171,7 @@ brew uninstall <パッケージ名>
 ## 参考リンク
 
 - [Homebrew 公式](https://brew.sh/)
+- [GraalVM 公式ダウンロード](https://www.graalvm.org/downloads/)
 - [Neovim 公式](https://neovim.io/)
 - [Starship 公式](https://starship.rs/)
 - [dotfiles リポジトリ](https://github.com/warasugitewara/dotfiles)
