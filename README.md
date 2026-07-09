@@ -143,6 +143,15 @@ XDG_CACHE_HOME  = ~/.cache         # キャッシュ
 git config --global user.email "your@email.com"
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+## 🙏 Acknowledgements
+
+特に参考にさせていただいた dotfiles リポジトリです。
+
+- [mozumasu/dotfiles](https://github.com/mozumasu/dotfiles) — ターミナル環境（WezTerm など）の構成と見せ方
+- [ryoppippi/dotfiles](https://github.com/ryoppippi/dotfiles) — macOS / Linux クロスプラットフォーム構成
+
 ## License
 
 [MIT](LICENCE)
