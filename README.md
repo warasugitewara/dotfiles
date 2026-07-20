@@ -24,6 +24,15 @@
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+## ✨ Highlights
+
+- 🌐 **クロスプラットフォーム** — Nushell / WezTerm / Starship を共通レイヤーにし、Windows と Linux で同じ設定を使い回す
+- 🗂️ **XDG 準拠** — 散らかりがちなツール設定をすべて `~/.config` に集約
+- 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) / `fcc` (Claude Code) をシェルコマンド化
+- 🔀 **OS 自動分岐** — `btop`→`btop4win`、`nano`→`nvim` を OS ごとに透過切り替え
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ## 🛠️ Tools
 
 | 種別 | ツール | 対象 |
@@ -73,6 +82,7 @@ cd ~/.config/linux && brew bundle install
 cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 ```
 
+> [!NOTE]
 > 詳細な Linux 環境構築手順は [`linux/SETUP.md`](https://github.com/warasugitewara/dotfiles/blob/main/linux/SETUP.md) を参照。
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -81,20 +91,23 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 
 ```text
 .config/
-├── nushell/        # Nushell      (共通)
-├── nvim/           # Neovim       (LazyVim, 共通)
-├── wezterm/        # WezTerm      (共通)
-├── starship.toml   # Starship     (共通)
+├── nushell/        # Nushell      (shell,    共通)
+├── nvim/           # Neovim       (LazyVim,  共通)
+├── wezterm/        # WezTerm      (terminal, 共通)
+├── starship.toml   # Starship     (prompt,   共通)
 ├── git/            # Git          (共通)
+├── keymap/         # 自作キーボード (Mint60 / A75)
 ├── powershell/     # PowerShell 7 (Windows)
 ├── scoop/          # Scoop        (Windows)
-├── keymap/         # キーマップ    (Mint60 / A75)
-├── docker/ python/ ruby/ npm/ go/ pip/   # 各ツールの XDG 設定
+├── windows/        # Windows メモ  (nushell alias 等)
+├── docker/ python/ ruby/ npm/ go/ pip/   # 各ツールの XDG 設定 (共通)
+├── chrome-addon/   # ブラウザ / AdGuard ルール
+├── waras/          # GitHub プロフィール README
 └── linux/          # Linux 専用
     ├── Brewfile           # Homebrew パッケージリスト
     ├── bashrc.xdg-config  # XDG 統合 bashrc
     ├── SETUP.md           # 環境構築ガイド
-    └── zellij/            # Zellij 設定
+    └── zellij/            # Zellij 設定 (config.kdl)
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -111,6 +124,7 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 | `fuck` | [thefuck](https://github.com/nvbn/thefuck) 統合（直前コマンドを自動修正） |
 | `calc [expr]` | calcpp CLI 電卓 *(Windows)* |
 | `btop` | Windows では `btop4win`、Linux/macOS では native `btop` に自動分岐 |
+| `nano` | Windows では `nvim`、Linux/macOS では native `nano` に自動分岐 |
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -124,6 +138,9 @@ XDG_DATA_HOME   = ~/.local/share   # データファイル
 XDG_CACHE_HOME  = ~/.cache         # キャッシュ
 ```
 
+<details>
+<summary>ツール別の XDG 統合設定</summary>
+
 | ツール | 設定ファイル | 環境変数 |
 | --- | --- | --- |
 | Python | `python/pythonrc.py`, `pip/pip.conf` | `PYTHONSTARTUP` |
@@ -133,15 +150,20 @@ XDG_CACHE_HOME  = ~/.cache         # キャッシュ
 | Git | `git/config` | `GIT_CONFIG_GLOBAL` |
 | Docker | `docker/config.json` | `DOCKER_CONFIG` |
 
+> Linux では [`linux/bashrc.xdg-config`](https://github.com/warasugitewara/dotfiles/blob/main/linux/bashrc.xdg-config) を `~/.bashrc` に追記して有効化します。
+
+</details>
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## 📝 Notes
 
-クローン後、Git のメールアドレスはローカルで設定してください（リポジトリには含めません）。
-
-```bash
-git config --global user.email "your@email.com"
-```
+> [!IMPORTANT]
+> Git のメールアドレスは**リポジトリに含めていません**。クローン後にローカルで設定してください。
+>
+> ```bash
+> git config --global user.email "your@email.com"
+> ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
