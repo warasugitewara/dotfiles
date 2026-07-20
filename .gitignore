@@ -75,3 +75,7 @@ cagent/
 raycast-x/
 apps.json
 versions.json
+
+# Tool configs that may capture credentials on login (untracked)
+docker/config.json
+npm/npmrc

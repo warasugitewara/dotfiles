@@ -100,7 +100,7 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 ├── powershell/     # PowerShell 7 (Windows)
 ├── scoop/          # Scoop        (Windows)
 ├── windows/        # Windows メモ  (nushell alias 等)
-├── docker/ python/ ruby/ npm/ go/ pip/   # 各ツールの XDG 設定 (共通)
+├── python/ ruby/ go/ pip/   # 各ツールの XDG 設定 (共通)
 ├── chrome-addon/   # ブラウザ / AdGuard ルール
 ├── waras/          # GitHub プロフィール README
 └── linux/          # Linux 専用
@@ -145,10 +145,8 @@ XDG_CACHE_HOME  = ~/.cache         # キャッシュ
 | --- | --- | --- |
 | Python | `python/pythonrc.py`, `pip/pip.conf` | `PYTHONSTARTUP` |
 | Ruby | `ruby/irbrc`, `ruby/gemrc` | `IRBRC`, `GEM_HOME` |
-| npm | `npm/npmrc` | `npm_config_userconfig` |
 | Go | `go/env` | `GOPATH`, `GOMODCACHE` |
 | Git | `git/config` | `GIT_CONFIG_GLOBAL` |
-| Docker | `docker/config.json` | `DOCKER_CONFIG` |
 
 > Linux では [`linux/bashrc.xdg-config`](https://github.com/warasugitewara/dotfiles/blob/main/linux/bashrc.xdg-config) を `~/.bashrc` に追記して有効化します。
 
