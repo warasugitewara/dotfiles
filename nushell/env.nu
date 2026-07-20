@@ -22,12 +22,20 @@ $env.XDG_CACHE_HOME = ($nu.home-dir | path join ".cache")
 #   インストール: https://github.com/PLC-lang/calcpp
 # ================================================
 def calc [...args] {
-    let calcpp_path = ($env.USERPROFILE | path join "AppData" "Local" "Programs" "calcpp" "calcpp.exe")
+    if $nu.os-info.name != "windows" {
+        print "calc は Windows 専用 (calcpp) です"
+        return
+    }
+    let calcpp_path = ($nu.home-dir | path join "AppData" "Local" "Programs" "calcpp" "calcpp.exe")
     ^$calcpp_path ...$args
 }
 
 def calc-with-precision [expr: string, --precision (-p): int = 15] {
-    let calcpp_path = ($env.USERPROFILE | path join "AppData" "Local" "Programs" "calcpp" "calcpp.exe")
+    if $nu.os-info.name != "windows" {
+        print "calc-with-precision は Windows 専用 (calcpp) です"
+        return
+    }
+    let calcpp_path = ($nu.home-dir | path join "AppData" "Local" "Programs" "calcpp" "calcpp.exe")
 
     if ($precision != 15) {
         ^$calcpp_path -p $precision $expr

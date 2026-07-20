@@ -12,11 +12,13 @@ config.window_background_opacity = 0.75
 config.default_prog = { "nu" }
 
 -- XDG_CONFIG_HOME を .config に設定（nushell が .config から設定を読み込む）
+-- パス区切りは OS に応じて自動判定（Windows: "\", Unix: "/"）
 local home = wezterm.home_dir
+local sep = package.config:sub(1, 1)
 config.set_environment_variables = {
-	XDG_CONFIG_HOME = home .. "\\.config",
-	XDG_DATA_HOME = home .. "\\.local\\share",
-	XDG_CACHE_HOME = home .. "\\.cache",
+	XDG_CONFIG_HOME = home .. sep .. ".config",
+	XDG_DATA_HOME = home .. sep .. ".local" .. sep .. "share",
+	XDG_CACHE_HOME = home .. sep .. ".cache",
 }
 
 ----------------------------------------------------

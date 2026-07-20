@@ -86,7 +86,11 @@ def llm [...args: string] {
 
     if $ollama_running == false {
         print "⏳ Ollamaを起動中..."
-        ^cmd /c start "" ollama serve
+        if $nu.os-info.name == "windows" {
+            ^cmd /c start "" ollama serve
+        } else {
+            job spawn { ^ollama serve }
+        }
         sleep 3sec
     }
 
@@ -110,7 +114,11 @@ def ai [] {
     let router_port = 4001
     let ollama_port  = 11434
     let router_dir   = ($nu.home-dir | path join "llm-router")
-    let aider_bin    = ($nu.home-dir | path join ".local" "bin" "aider.exe")
+    let aider_bin    = if $nu.os-info.name == "windows" {
+        ($nu.home-dir | path join ".local" "bin" "aider.exe")
+    } else {
+        "aider"
+    }
 
     let ollama_running = (try {
         http get $"http://localhost:($ollama_port)"
@@ -119,7 +127,11 @@ def ai [] {
 
     if $ollama_running == false {
         print "⏳ Ollama起動中..."
-        ^cmd /c start "" ollama serve
+        if $nu.os-info.name == "windows" {
+            ^cmd /c start "" ollama serve
+        } else {
+            job spawn { ^ollama serve }
+        }
         sleep 2sec
     }
 
@@ -130,7 +142,11 @@ def ai [] {
 
     if $router_running == false {
         print "🔀 Router起動中..."
-        ^cmd /c start "" /d $router_dir uvicorn router_server:app --host 0.0.0.0 --port 4001
+        if $nu.os-info.name == "windows" {
+            ^cmd /c start "" /d $router_dir uvicorn router_server:app --host 0.0.0.0 --port 4001
+        } else {
+            job spawn { cd $router_dir; ^uvicorn router_server:app --host 0.0.0.0 --port 4001 }
+        }
         sleep 3sec
 
         let ready = (try {
