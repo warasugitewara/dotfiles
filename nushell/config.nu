@@ -167,6 +167,17 @@ def --wrapped btop [...rest] {
     }
 }
 
+# ================================================
+# nano - Windows では nvim、Linux/macOS では native nano を呼ぶ
+# ================================================
+def --wrapped nano [...rest] {
+    if $nu.os-info.name == "windows" {
+        ^nvim ...$rest
+    } else {
+        ^nano ...$rest
+    }
+}
+
 # typo aliases ＋α
 alias ks = ls
 alias claer = clear
@@ -176,8 +187,16 @@ alias cleaer = clear
 alias claera = clear
 alias caer = clear
 alias lcaer = clear
-alias cr = clear
+alias cc = clear
 alias cat = bat
 alias quit = exit
 alias :q = exit
 alias :q! = exit
+
+# editor aliases
+alias vi = nvim
+alias vim = nvim
+alias nivm = nvim
+
+# Claude Code
+alias cr = claude --resume

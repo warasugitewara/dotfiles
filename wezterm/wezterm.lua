@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 -- 基本
 config.automatically_reload_config = true
 config.font = wezterm.font("HackGen Console NF")
-config.font_size = 12.0
+config.font_size = 11.85
 config.use_ime = true
 config.window_background_opacity = 0.75
 
