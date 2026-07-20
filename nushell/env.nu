@@ -13,9 +13,9 @@
 # See https://www.nushell.sh/book/configuration.html
 
 # XDG Base Directory Specification
-$env.XDG_CONFIG_HOME = ($nu.home-path | path join ".config")
-$env.XDG_DATA_HOME = ($nu.home-path | path join ".local" "share")
-$env.XDG_CACHE_HOME = ($nu.home-path | path join ".cache")
+$env.XDG_CONFIG_HOME = ($nu.home-dir | path join ".config")
+$env.XDG_DATA_HOME = ($nu.home-dir | path join ".local" "share")
+$env.XDG_CACHE_HOME = ($nu.home-dir | path join ".cache")
 
 # ================================================
 # calcpp - CLI Calculator Integration (Windows)

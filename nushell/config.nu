@@ -18,9 +18,9 @@
 #     config nu --doc | nu-highlight | less -R
 
 # XDG Base Directory Specification
-$env.XDG_CONFIG_HOME = ($nu.home-path | path join ".config")
-$env.XDG_DATA_HOME = ($nu.home-path | path join ".local" "share")
-$env.XDG_CACHE_HOME = ($nu.home-path | path join ".cache")
+$env.XDG_CONFIG_HOME = ($nu.home-dir | path join ".config")
+$env.XDG_DATA_HOME = ($nu.home-dir | path join ".local" "share")
+$env.XDG_CACHE_HOME = ($nu.home-dir | path join ".cache")
 
 $env.config.shell_integration.osc133 = false
 $env.config.show_banner = false
@@ -109,8 +109,8 @@ def llm [...args: string] {
 def ai [] {
     let router_port = 4001
     let ollama_port  = 11434
-    let router_dir   = ($nu.home-path | path join "llm-router")
-    let aider_bin    = ($nu.home-path | path join ".local" "bin" "aider.exe")
+    let router_dir   = ($nu.home-dir | path join "llm-router")
+    let aider_bin    = ($nu.home-dir | path join ".local" "bin" "aider.exe")
 
     let ollama_running = (try {
         http get $"http://localhost:($ollama_port)"
