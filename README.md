@@ -46,11 +46,18 @@
 
 ### Settings
 
-- WezTerm &nbsp;→&nbsp; [`wezterm/`](https://github.com/warasugitewara/dotfiles/tree/main/wezterm)
-- Nushell &nbsp;→&nbsp; [`nushell/`](https://github.com/warasugitewara/dotfiles/tree/main/nushell)
-- Neovim &nbsp;→&nbsp; [`nvim/`](https://github.com/warasugitewara/dotfiles/tree/main/nvim)
-- Starship &nbsp;→&nbsp; [`starship.toml`](https://github.com/warasugitewara/dotfiles/blob/main/starship.toml)
-- Linux 専用 &nbsp;→&nbsp; [`linux/`](https://github.com/warasugitewara/dotfiles/tree/main/linux)
+| 対象 | ツール | 場所 |
+| --- | --- | --- |
+| **共通** | WezTerm | [`wezterm/`](https://github.com/warasugitewara/dotfiles/tree/main/wezterm) |
+| | Nushell | [`nushell/`](https://github.com/warasugitewara/dotfiles/tree/main/nushell) |
+| | Neovim | [`nvim/`](https://github.com/warasugitewara/dotfiles/tree/main/nvim) |
+| | Starship | [`starship.toml`](https://github.com/warasugitewara/dotfiles/blob/main/starship.toml) |
+| | Git | [`git/`](https://github.com/warasugitewara/dotfiles/tree/main/git) |
+| **Windows** | PowerShell 7 | [`powershell/`](https://github.com/warasugitewara/dotfiles/tree/main/powershell) |
+| | Scoop | [`scoop/`](https://github.com/warasugitewara/dotfiles/tree/main/scoop) |
+| | 復元マニフェスト | [`windows/`](https://github.com/warasugitewara/dotfiles/tree/main/windows) |
+| **Linux** | Zellij / Brewfile 等 | [`linux/`](https://github.com/warasugitewara/dotfiles/tree/main/linux) |
+| **その他** | キーマップ | [`keymap/`](https://github.com/warasugitewara/dotfiles/tree/main/keymap) |
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -71,10 +78,6 @@ winget import -i $HOME\.config\windows\winget.json --accept-package-agreements -
 #    $PROFILE が powershell/Microsoft.PowerShell_profile.ps1 を読むよう設定
 ```
 
-> [!NOTE]
-> `windows/scoop.json` `windows/winget.json` は導入済みパッケージのマニフェスト。
-> 更新は `scoop export > windows/scoop.json` / `winget export` 後に開発ツールを厳選して反映。
-
 ### 🐧 Linux (Debian / Ubuntu)
 
 ```bash
@@ -94,22 +97,60 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+## 📦 パッケージ復元 (Windows)
+
+`windows/` に導入済みパッケージのマニフェストを保持。ディスク故障・災害時に**一括再導入**できる。
+
+| ファイル | 内容 | 復元コマンド |
+| --- | --- | --- |
+| [`scoop.json`](https://github.com/warasugitewara/dotfiles/blob/main/windows/scoop.json) | scoop 12アプリ（gcc / gradle / jdtls / lua-language-server / ollama / python / JDK 等） | `scoop import windows/scoop.json` |
+| [`winget.json`](https://github.com/warasugitewara/dotfiles/blob/main/windows/winget.json) | winget 厳選 34件（下記） | `winget import -i windows/winget.json` |
+| [`nushell alias.md`](https://github.com/warasugitewara/dotfiles/blob/main/windows/nushell%20alias.md) | Windows 用 Nushell エイリアスのメモ | — |
+
+<details>
+<summary>winget.json の内訳（34件）</summary>
+
+| カテゴリ | パッケージ |
+| --- | --- |
+| コア | Neovim / Nushell / WezTerm / Starship / PowerShell / WindowsTerminal / WSL / Ubuntu |
+| VCS | Git / GitHub CLI / GitHub Desktop / Copilot |
+| ランタイム・ビルド | Node.js / Rustup / uv / VS BuildTools / InnoSetup |
+| CLI | ripgrep / fastfetch / btop4win / FFmpeg / 7zip / gsudo |
+| エディタ | VS Code / Zed / sakura / TeraTerm |
+| AI CLI | Claude / Codex |
+| インフラ接続 | Twingate / Tailscale |
+| ブラウザ・通信 | Chrome / Discord / Vivaldi |
+
+> 更新: `scoop export > windows/scoop.json` / `winget export` 後に開発ツールを厳選して反映。
+> ゲーム・メディア・システムランタイム等のノイズは除外している。
+
+</details>
+
+> [!NOTE]
+> Linux 側のパッケージは [`linux/Brewfile`](https://github.com/warasugitewara/dotfiles/blob/main/linux/Brewfile)（`brew bundle`）で管理。
+> GUI アプリは Homebrew(Linux) が cask 非対応のため対象外。
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ## 📁 Structure
 
 ```text
 .config/
-├── nushell/        # Nushell      (shell,    共通)
-├── nvim/           # Neovim       (LazyVim,  共通)
-├── wezterm/        # WezTerm      (terminal, 共通)
+├── nushell/        # Nushell      (shell,    共通)  config.nu / env.nu
+├── nvim/           # Neovim       (LazyVim,  共通)  lazy-lock.json で固定
+├── wezterm/        # WezTerm      (terminal, 共通)  wezterm.lua / keybinds.lua
 ├── starship.toml   # Starship     (prompt,   共通)
 ├── git/            # Git          (共通)
-├── keymap/         # 自作キーボード (Mint60 / A75)
-├── powershell/     # PowerShell 7 (Windows)
-├── scoop/          # Scoop        (Windows)
-├── windows/        # Windows 復元マニフェスト (scoop.json / winget.json) + メモ
+├── keymap/         # 自作キーボード (Mint60 / Drunkdeer A75 + チートシート)
+├── powershell/     # PowerShell 7 (Windows)  profile.ps1 / config.json
+├── scoop/          # Scoop 設定   (Windows)
+├── windows/        # Windows 専用
+│   ├── scoop.json       # scoop 復元マニフェスト
+│   ├── winget.json      # winget 復元マニフェスト
+│   └── nushell alias.md # Nushell エイリアスのメモ
 ├── python/ ruby/ go/ pip/   # 各ツールの XDG 設定 (共通)
-├── chrome-addon/   # ブラウザ / AdGuard ルール
-├── waras/          # GitHub プロフィール README
+├── chrome-addon/   # ブラウザ拡張 (AdGuard ルール等)
+├── waras/          # GitHub プロフィール README (warasugitewara/warasugitewara)
 └── linux/          # Linux 専用
     ├── Brewfile           # Homebrew パッケージリスト
     ├── bashrc.xdg-config  # XDG 統合 bashrc
