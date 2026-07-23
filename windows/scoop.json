@@ -1,0 +1,102 @@
+{
+    "apps": [
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-21T12:37:36.7411886+09:00",
+            "Name": "7zip",
+            "Version": "26.01"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-07T09:21:49.2117094+09:00",
+            "Name": "bat",
+            "Version": "0.26.1"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-07-23T18:03:57.7478374+09:00",
+            "Name": "chezmoi",
+            "Version": "2.71.1"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-21T12:37:48.7384774+09:00",
+            "Name": "clangd",
+            "Version": "22.1.0"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-03-17T16:38:49.0886525+09:00",
+            "Name": "dark",
+            "Version": "3.14.1"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-07-19T20:15:42.6560641+09:00",
+            "Name": "gcc",
+            "Version": "15.2.0"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-20T02:22:37.329494+09:00",
+            "Name": "gradle",
+            "Version": "9.6.0"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-21T12:37:45.1071625+09:00",
+            "Name": "jdtls",
+            "Version": "1.59.0-202605111959"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-06-21T12:37:46.6757039+09:00",
+            "Name": "lua-language-server",
+            "Version": "3.18.2"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-03-17T17:02:37.7391525+09:00",
+            "Name": "ollama",
+            "Version": "0.18.0"
+        },
+        {
+            "Info": "",
+            "Source": "main",
+            "Updated": "2026-03-17T16:39:31.6174361+09:00",
+            "Name": "python",
+            "Version": "3.14.3"
+        },
+        {
+            "Info": "",
+            "Source": "java",
+            "Updated": "2026-06-20T02:27:44.7610804+09:00",
+            "Name": "temurin21-jdk",
+            "Version": "21.0.11-10.0"
+        }
+    ],
+    "buckets": [
+        {
+            "Name": "main",
+            "Source": "https://github.com/ScoopInstaller/Main.git",
+            "Updated": "2026-07-23T16:16:10+09:00",
+            "Manifests": 1612
+        },
+        {
+            "Name": "java",
+            "Source": "https://github.com/ScoopInstaller/Java",
+            "Updated": "2026-07-23T15:31:04+09:00",
+            "Manifests": 336
+        }
+    ]
+}

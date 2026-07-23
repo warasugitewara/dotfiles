@@ -30,6 +30,7 @@
 - 🗂️ **XDG 準拠** — 散らかりがちなツール設定をすべて `~/.config` に集約
 - 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) / `fcc` (Claude Code) をシェルコマンド化
 - 🔀 **OS 自動分岐** — `btop`→`btop4win`、`nano`→`nvim` を OS ごとに透過切り替え
+- 💾 **災害復旧** — `scoop import` / `winget import` でパッケージ一括復元、`nvim/lazy-lock.json` でプラグイン固定
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -61,12 +62,18 @@
 # 1. dotfiles をクローン
 git clone https://github.com/warasugitewara/dotfiles $HOME\.config
 
-# 2. Nushell / WezTerm / Starship をインストール (Scoop)
-scoop install nushell wezterm starship
+# 2. パッケージを一括復元（災害復旧）
+#    Scoop 未導入なら先に: irm get.scoop.sh | iex
+scoop import $HOME\.config\windows\scoop.json
+winget import -i $HOME\.config\windows\winget.json --accept-package-agreements --accept-source-agreements
 
 # 3. PowerShell プロファイルを配置 (任意)
 #    $PROFILE が powershell/Microsoft.PowerShell_profile.ps1 を読むよう設定
 ```
+
+> [!NOTE]
+> `windows/scoop.json` `windows/winget.json` は導入済みパッケージのマニフェスト。
+> 更新は `scoop export > windows/scoop.json` / `winget export` 後に開発ツールを厳選して反映。
 
 ### 🐧 Linux (Debian / Ubuntu)
 
@@ -99,7 +106,7 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 ├── keymap/         # 自作キーボード (Mint60 / A75)
 ├── powershell/     # PowerShell 7 (Windows)
 ├── scoop/          # Scoop        (Windows)
-├── windows/        # Windows メモ  (nushell alias 等)
+├── windows/        # Windows 復元マニフェスト (scoop.json / winget.json) + メモ
 ├── python/ ruby/ go/ pip/   # 各ツールの XDG 設定 (共通)
 ├── chrome-addon/   # ブラウザ / AdGuard ルール
 ├── waras/          # GitHub プロフィール README
