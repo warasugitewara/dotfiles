@@ -60,3 +60,10 @@ if $nu.os-info.name == "windows" {
         | uniq
     )
 }
+
+# ================================================
+# Local overrides (dotfiles-sec / chezmoi 管理、未配置なら no-op)
+#   env.local.nu が存在すれば source、無ければ source null で no-op
+# ================================================
+const local_env = ($nu.default-config-dir | path join "env.local.nu")
+source (if ($local_env | path exists) { $local_env } else { null })
