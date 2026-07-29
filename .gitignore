@@ -10,6 +10,8 @@ powershell/Scripts/
 powershell/PSReadline/
 powershell/PSSessions/
 powershell/history.txt
+# PowerShell 本体が作るもう一段ネストした設定ディレクトリ。ほぼ使わないため追跡しない。
+powershell/PowerShell/
 
 # 非公開レイヤー (dotfiles-sec 管理)。env.nu が存在すれば source する。
 # このリポは public なので絶対に追跡しないこと。
