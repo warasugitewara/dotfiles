@@ -172,6 +172,16 @@ def ai [] {
 }
 
 # ================================================
+# Switch-Net - ネットワーク設定切替 (標準モード/ゲームモード)
+#   実体: ~/.config/powershell/Scripts/Switch-Net.ps1 (要管理者権限)
+#   使い方: Switch-Net Dev / Switch-Net Game
+# ================================================
+def Switch-Net [mode: string] {
+    let script = ($nu.home-dir | path join ".config" "powershell" "Scripts" "Switch-Net.ps1")
+    ^pwsh -NoProfile -File $script -Mode $mode
+}
+
+# ================================================
 # btop - Windows では btop4win、Linux/macOS では native btop を呼ぶ
 #   (^ で外部コマンドを強制し、この def 自身への再帰を回避)
 # ================================================
