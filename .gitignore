@@ -84,3 +84,6 @@ versions.json
 # Tool configs that may capture credentials on login (untracked)
 docker/config.json
 npm/npmrc
+
+# Serena (MCP) が生成するプロジェクトメタデータ。ツール固有の生成物のため追跡しない。
+.serena/
