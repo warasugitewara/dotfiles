@@ -204,6 +204,7 @@ def --wrapped nano [...rest] {
     }
 }
 
+
 # typo aliases ＋α
 alias ks = ls
 alias claer = clear
@@ -225,4 +226,8 @@ alias vim = nvim
 alias nivm = nvim
 
 # Claude Code
-alias cr = claude --resume
+alias claude = headroom wrap claude
+alias cr = headroom wrap claude --resume
+
+# stable AI
+use modules/imagegen.nu *
