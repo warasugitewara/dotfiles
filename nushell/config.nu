@@ -214,7 +214,6 @@ alias cleaer = clear
 alias claera = clear
 alias caer = clear
 alias lcaer = clear
-alias cc = clear
 alias cat = bat
 alias quit = exit
 alias :q = exit
@@ -227,6 +226,7 @@ alias nivm = nvim
 
 # Claude Code
 alias claude = headroom wrap claude
+alias cc = headroom wrap claude
 alias cr = headroom wrap claude --resume
 
 # stable AI
