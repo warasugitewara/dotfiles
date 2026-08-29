@@ -207,6 +207,7 @@ def --wrapped nano [...rest] {
 
 # typo aliases ＋α
 alias ks = ls
+alias c = clear
 alias claer = clear
 alias claeer = clear
 alias caler = clear
