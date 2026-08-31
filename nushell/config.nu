@@ -33,19 +33,6 @@ mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
 # ================================================
-# fcc - Claude Code を Nvidia NIM プロキシ経由で起動 (Windows)
-#   proxy: 192.168.0.100:8082
-# ================================================
-def "fcc" [...args] {
-    with-env {
-        ANTHROPIC_BASE_URL: "http://192.168.0.100:8082",
-        ANTHROPIC_AUTH_TOKEN: "freecc"
-    } {
-        ^claude ...$args
-    }
-}
-
-# ================================================
 # llm - deepseek-r1:8b via Ollama (2026-06 upgrade)
 #   旧: qwen2.5-coder:7b → 新: deepseek-r1:8b
 #   HumanEval ~62%, 思考モード付き, ~5GB VRAM
