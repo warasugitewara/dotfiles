@@ -28,7 +28,7 @@
 
 - 🌐 **クロスプラットフォーム** — Nushell / WezTerm / Starship を共通レイヤーにし、Windows と Linux で同じ設定を使い回す
 - 🗂️ **XDG 準拠** — 散らかりがちなツール設定をすべて `~/.config` に集約
-- 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) / `fcc` (Claude Code) をシェルコマンド化
+- 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) をシェルコマンド化
 - 🔀 **OS 自動分岐** — `btop`→`btop4win`、`nano`→`nvim` を OS ごとに透過切り替え
 - 💾 **災害復旧** — `scoop import` / `winget import` でパッケージ一括復元、`nvim/lazy-lock.json` でプラグイン固定
 
