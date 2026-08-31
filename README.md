@@ -168,12 +168,8 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 | --- | --- |
 | `llm [prompt]` | [deepseek-r1:8b](https://ollama.com/library/deepseek-r1) を Ollama 経由で起動 |
 | `ai` | [Aider](https://aider.chat/) + llm-router（オンライン: Claude Sonnet / オフライン: deepseek-r1:8b） |
-| `fcc [...args]` | Claude Code を Nvidia NIM プロキシ経由で起動 |
-| `fuck` | [thefuck](https://github.com/nvbn/thefuck) 統合（直前コマンドを自動修正） |
-| `calc [expr]` | calcpp CLI 電卓 *(Windows)* |
 | `btop` | Windows では `btop4win`、Linux/macOS では native `btop` に自動分岐 |
 | `nano` | Windows では `nvim`、Linux/macOS では native `nano` に自動分岐 |
-
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## 🗂️ XDG Base Directory
