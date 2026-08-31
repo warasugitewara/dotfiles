@@ -22,43 +22,15 @@ $env.XDG_CONFIG_HOME = ($nu.home-dir | path join ".config")
 $env.XDG_DATA_HOME = ($nu.home-dir | path join ".local" "share")
 $env.XDG_CACHE_HOME = ($nu.home-dir | path join ".cache")
 
+# weztermとの競合を対策
 $env.config.shell_integration.osc133 = false
 $env.config.show_banner = false
 $env.config.render_right_prompt_on_last_line = true
 $env.config.use_kitty_protocol = false
+
+# Starship 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
-
-# ================================================
-# fuck - thefuck integration
-# ================================================
-def fuck [args?: string] {
-    let last_command = (
-        history
-        | reverse
-        | first 1
-        | select command
-        | get command.0
-    )
-    let result = (thefuck $last_command | str trim)
-
-    if ($result != "No fucks given" and ($result | str length) > 0) {
-        nu -c $result
-    } else {
-        if ($last_command =~ 'not found') {
-            print "💡 Command suggestions:"
-            print "  • java: Set JAVA_HOME or download from adoptopenjdk.net"
-            print "  • python: Use `py` or install from python.org"
-            print "  • python3: Use `py -3` or install Python"
-            print "  • node/npm: Download Node.js from nodejs.org"
-            print "  • ruby: Download from ruby-lang.org"
-            print "  • go: Download from golang.org"
-            print "  • docker: Download from docker.com"
-        } else {
-            print "No fucks given"
-        }
-    }
-}
 
 # ================================================
 # fcc - Claude Code を Nvidia NIM プロキシ経由で起動 (Windows)
