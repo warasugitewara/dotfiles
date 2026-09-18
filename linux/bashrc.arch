@@ -1,0 +1,62 @@
+# ~/.bashrc の XDG / 開発環境設定セクション (Arch Linux 版)
+# このセクションを ~/.bashrc に追記してください。
+#
+# Debian 版との差分:
+#   - Go / Ruby は導入していないため除外
+#   - パッケージは Homebrew ではなく pacman で導入 (linux/SETUP.md の brew 手順は非適用)
+#   - Java は GraalVM を ~/.local/share/java に展開して JAVA_HOME を通す
+#   - Rust は pacman の rustup。CARGO_HOME/RUSTUP_HOME を XDG に寄せているため
+#     rustup default stable はこの変数が効いた状態で実行すること
+#   - uv でインストールした CLI (headroom 等) は ~/.local/bin に入る
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# ============================================================================
+# XDG Base Directory Specification - Configuration Integration
+# ============================================================================
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+# Python
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc.py"
+export PYTHONUSERBASE="${XDG_DATA_HOME}/python"
+
+# npm
+export npm_config_userconfig="${XDG_CONFIG_HOME}/npm/npmrc"
+export npm_config_cache="${XDG_CACHE_HOME}/npm"
+export npm_config_logs="${XDG_STATE_HOME}/npm/logs"
+
+# Rust
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export PATH="${CARGO_HOME}/bin:${PATH}"
+
+# PHP
+export PHP_INI_SCAN_DIR="${XDG_CONFIG_HOME}/php"
+
+# Java (GraalVM)
+export JAVA_HOME="${XDG_DATA_HOME}/java/graalvm-jdk-25.0.4+7.1"
+export PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Git
+export GIT_CONFIG_GLOBAL="${XDG_CONFIG_HOME}/git/config"
+
+# Docker
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
+
+# Node.js
+export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node/repl_history"
+export NODE_REPL_HISTORY_SIZE=10000
+
+mkdir -p "${XDG_DATA_HOME}/python"
+mkdir -p "${XDG_CACHE_HOME}/npm"
+mkdir -p "${XDG_DATA_HOME}/cargo"
+mkdir -p "${XDG_DATA_HOME}/rustup"
+mkdir -p "${XDG_DATA_HOME}/node"
+mkdir -p "${XDG_STATE_HOME}/npm/logs"
+
+# uv
+export PATH="$HOME/.local/bin:$PATH"

@@ -152,10 +152,13 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 ├── chrome-addon/   # ブラウザ拡張 (AdGuard ルール等)
 ├── waras/          # GitHub プロフィール README (warasugitewara/warasugitewara)
 └── linux/          # Linux 専用
-    ├── Brewfile           # Homebrew パッケージリスト
-    ├── bashrc.xdg-config  # XDG 統合 bashrc
+    ├── Brewfile           # Homebrew パッケージリスト (Debian)
+    ├── bashrc.xdg-config  # XDG 統合 bashrc (Debian)
+    ├── bashrc.arch        # XDG 統合 bashrc (Arch / pacman・GraalVM・uv)
     ├── SETUP.md           # 環境構築ガイド
-    └── zellij/            # Zellij 設定 (config.kdl)
+    ├── zellij/            # Zellij 設定 (config.kdl)
+    ├── hypr/              # Hyprland 設定 (hyprland.lua / Wayland・Arch)
+    └── fcitx5/            # fcitx5 + mozc 設定 (profile / config)
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
