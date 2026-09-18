@@ -400,4 +400,4 @@ hl.env("QT_IM_MODULE", "fcitx")
 hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.bind("SUPER+RETURN", hl.dsp.exec_cmd(terminal))
-hl.bind("SUPER+B", hl.dsp.exec_cmd("firefox"))
+hl.bind("SUPER+B", hl.dsp.exec_cmd("vivaldi"))
