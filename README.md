@@ -160,7 +160,8 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
     ├── hypr/              # Hyprland 設定 (hyprland.lua / Wayland・Arch)
     ├── fcitx5/            # fcitx5 + mozc 設定 (profile / config)
     ├── gtk-3.0/           # GTK3 テーマ設定 (ダークモード)
-    └── gtk-4.0/           # GTK4 テーマ設定 (ダークモード)
+    ├── gtk-4.0/           # GTK4 テーマ設定 (ダークモード)
+    └── chrome-flags.conf  # Chrome 起動フラグ (Wayland ネイティブ + IME)
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
