@@ -390,7 +390,9 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("fcitx5 -d")
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("wl-paste --watch cliphist store")
-    hl.exec_cmd("hyprpaper")
+    -- 壁紙は waypaper が記録した最後の状態を復元する。
+    -- hyprpaper とは背景レイヤーを奪い合うため併用しない。
+    hl.exec_cmd("waypaper --restore")
 end)
 
 -- XWaylandアプリでの日本語入力
