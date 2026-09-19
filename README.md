@@ -163,6 +163,7 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
     ├── gtk-4.0/           # GTK4 テーマ設定 (ダークモード)
     ├── chrome-flags.conf  # Chrome 起動フラグ (Wayland ネイティブ + IME)
     ├── greetd/            # greetd + tuigreet (Hyprland 自動起動)
+    ├── waypaper/          # 壁紙 GUI + linux-wallpaperengine (設定のみ)
     └── bin/               # 自作スクリプト (win-boot: 次回だけ Windows で起動)
 ```
 
