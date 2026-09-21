@@ -7,7 +7,7 @@ config.font = wezterm.font("HackGen Console NF")
 config.font_size = 11.85
 config.use_ime = true
 config.window_background_opacity = 0.75
-
+--                                ↑推定 0.75
 -- 使うターミナル
 config.default_prog = { "nu" }
 
