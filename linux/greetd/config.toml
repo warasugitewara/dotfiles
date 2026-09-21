@@ -1,0 +1,14 @@
+# greetd 設定 — tuigreet で Hyprland セッションを起動する
+
+[terminal]
+# tty1 を使う。tty2 以降は素のコンソールとして残るので、
+# 設定を壊しても Ctrl+Alt+F2 から復旧できる。
+vt = 1
+
+[default_session]
+# --remember          : 前回のユーザー名を記憶
+# --remember-session  : 前回のセッションを記憶
+# --asterisks         : パスワード入力を * で表示
+# --time              : 時計を表示
+command = "tuigreet --time --remember --remember-session --asterisks --cmd Hyprland"
+user = "greeter"

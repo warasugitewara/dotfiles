@@ -28,7 +28,7 @@
 
 - 🌐 **クロスプラットフォーム** — Nushell / WezTerm / Starship を共通レイヤーにし、Windows と Linux で同じ設定を使い回す
 - 🗂️ **XDG 準拠** — 散らかりがちなツール設定をすべて `~/.config` に集約
-- 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) / `fcc` (Claude Code) をシェルコマンド化
+- 🤖 **AI 統合** — `llm` (Ollama) / `ai` (Aider) をシェルコマンド化
 - 🔀 **OS 自動分岐** — `btop`→`btop4win`、`nano`→`nvim` を OS ごとに透過切り替え
 - 💾 **災害復旧** — `scoop import` / `winget import` でパッケージ一括復元、`nvim/lazy-lock.json` でプラグイン固定
 
@@ -152,10 +152,19 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 ├── chrome-addon/   # ブラウザ拡張 (AdGuard ルール等)
 ├── waras/          # GitHub プロフィール README (warasugitewara/warasugitewara)
 └── linux/          # Linux 専用
-    ├── Brewfile           # Homebrew パッケージリスト
-    ├── bashrc.xdg-config  # XDG 統合 bashrc
+    ├── Brewfile           # Homebrew パッケージリスト (Debian)
+    ├── bashrc.xdg-config  # XDG 統合 bashrc (Debian)
+    ├── bashrc.arch        # XDG 統合 bashrc (Arch / pacman・GraalVM・uv)
     ├── SETUP.md           # 環境構築ガイド
-    └── zellij/            # Zellij 設定 (config.kdl)
+    ├── zellij/            # Zellij 設定 (config.kdl)
+    ├── hypr/              # Hyprland 設定 (hyprland.lua / Wayland・Arch)
+    ├── fcitx5/            # fcitx5 + mozc 設定 (profile / config)
+    ├── gtk-3.0/           # GTK3 テーマ設定 (ダークモード)
+    ├── gtk-4.0/           # GTK4 テーマ設定 (ダークモード)
+    ├── chrome-flags.conf  # Chrome 起動フラグ (Wayland ネイティブ + IME)
+    ├── greetd/            # greetd + tuigreet (Hyprland 自動起動)
+    ├── waypaper/          # 壁紙 GUI + linux-wallpaperengine (設定のみ)
+    └── bin/               # 自作スクリプト (win-boot: 次回だけ Windows で起動)
 ```
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -168,12 +177,8 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
 | --- | --- |
 | `llm [prompt]` | [deepseek-r1:8b](https://ollama.com/library/deepseek-r1) を Ollama 経由で起動 |
 | `ai` | [Aider](https://aider.chat/) + llm-router（オンライン: Claude Sonnet / オフライン: deepseek-r1:8b） |
-| `fcc [...args]` | Claude Code を Nvidia NIM プロキシ経由で起動 |
-| `fuck` | [thefuck](https://github.com/nvbn/thefuck) 統合（直前コマンドを自動修正） |
-| `calc [expr]` | calcpp CLI 電卓 *(Windows)* |
 | `btop` | Windows では `btop4win`、Linux/macOS では native `btop` に自動分岐 |
 | `nano` | Windows では `nvim`、Linux/macOS では native `nano` に自動分岐 |
-
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## 🗂️ XDG Base Directory

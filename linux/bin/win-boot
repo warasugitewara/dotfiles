@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# 次回起動だけ Windows にして再起動する。
+#
+# systemd-boot のメニューには Windows が出せない。Windows の EFI は別ディスクの
+# ESP (nvme0n1p1) にあり、systemd-boot は自分が起動した ESP 内しか参照できないため。
+# 代わりに UEFI の BootNext 変数を使う。これはワンショットなので、Windows を
+# 使い終わって再起動すれば BootOrder に従って Arch へ戻る。
+set -euo pipefail
+
+# エントリ番号は Windows Update や UEFI 設定の変更で振り直されることがある。
+# ハードコードせず毎回名前で引く。
+entry=$(efibootmgr | sed -n 's/^Boot\([0-9A-Fa-f]\{4\}\)\*\?[[:space:]]*Windows Boot Manager.*/\1/p' | head -1)
+
+if [[ -z ${entry} ]]; then
+    echo "エラー: Windows Boot Manager の EFI エントリが見つかりません。" >&2
+    echo "現在のエントリ:" >&2
+    efibootmgr | sed 's/^/  /' >&2
+    exit 1
+fi
+
+echo "Windows Boot Manager: Boot${entry}"
+sudo efibootmgr --bootnext "${entry}" >/dev/null
+echo "次回起動を Windows に設定しました (今回限り。次々回は Arch に戻ります)"
+
+read -rp "今すぐ再起動しますか? [y/N] " ans
+if [[ ${ans} == [yY] ]]; then
+    systemctl reboot
+else
+    echo "再起動は見送りました。設定は有効なままなので、次に再起動すると Windows が起動します。"
+    echo "取り消す場合: sudo efibootmgr --delete-bootnext"
+fi
