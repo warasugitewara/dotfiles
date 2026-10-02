@@ -87,3 +87,6 @@ npm/npmrc
 
 # Serena (MCP) が生成するプロジェクトメタデータ。ツール固有の生成物のため追跡しない。
 .serena/
+
+# マシン固有の値 (固定 IP・インターフェース名) を含むため dotfiles-sec (~/.config/nic-watchdog) で管理する。
+windows/nic-watchdog/
