@@ -1,42 +1,249 @@
 // Zellij Configuration
-// Wezterm keybinds に合わせた統一キーバインド
+// WezTerm (dotfiles/wezterm/keybinds.lua) のキーバインドを移植したもの。
+//
+// 用途: Chromebook の ChromeOS Terminal / Secure Shell (hterm) から SSH 接続した際、
+//       WezTerm の機能が使えない代わりに Zellij で同じ操作感を得る。
+//
+// 方式: Zellij の "tmux" モードを WezTerm の LEADER (Ctrl+q) として流用する。
+//       各バインドの末尾で SwitchToMode "Normal" するので WezTerm の one-shot leader と同じ挙動になる。
+//
+// 対応表と「再現できない項目」は同ディレクトリの README.md を参照。
 
 ui {
     pane_frame_type "round"
 }
 
 keybinds clear-defaults=true {
+    //=================================================================
+    // Normal: LEADER (Ctrl+q) の入口のみ
+    //=================================================================
     normal {
-        // Pane分割（Wezterm互換）
-        // Wezterm: LEADER + d = 縦分割、LEADER + r = 横分割
-        // Zellij: Alt + d = 縦分割（Right）、Alt + r = 横分割（Down）
-        bind "Alt d" { NewPane "Right"; }
-        bind "Alt r" { NewPane "Down"; }
-        
-        // Paneを閉じる（Wezterm互換: LEADER + x）
+        bind "Ctrl q" { SwitchToMode "Tmux"; }
+    }
+
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+
+    //=================================================================
+    // LEADER (Ctrl+q) 配下 = WezTerm leader の移植先
+    //=================================================================
+    tmux {
+        // Ctrl+q を下位プロセスへ素通し (WezTerm の LEADER LEADER 相当。17 = 0x11 = Ctrl+Q)
+        bind "Ctrl q" { Write 17; SwitchToMode "Normal"; }
+
+        // --- Pane 分割 (WezTerm: LEADER d = SplitVertical → 下 / LEADER r = SplitHorizontal → 右) ---
+        bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
+
+        // --- Pane を閉じる (WezTerm: LEADER x) ---
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }
+
+        // --- Pane 移動 (WezTerm: LEADER hjkl) ---
+        bind "h" { MoveFocus "Left"; SwitchToMode "Normal"; }
+        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
+        bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
+
+        // --- Pane ズーム (WezTerm: LEADER z) ---
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+
+        // --- Pane サイズ調整モード (WezTerm: LEADER s → resize_pane key table) ---
+        bind "s" { SwitchToMode "Resize"; }
+
+        // --- Pane 移動モード (WezTerm: LEADER a → activate_pane key table) ---
+        // WezTerm 側は 1000ms タイムアウトだが Zellij にモードのタイムアウトは無いので Enter / Esc で抜ける
+        bind "a" { SwitchToMode "Pane"; }
+
+        // --- Copy モード相当 (WezTerm: LEADER [) ---
+        // Zellij の Scroll モード。vim の f/t ジャンプや v/V 範囲選択は無いので、
+        // 本格的に編集・選択したい場合は Scroll モード内で "e" (EditScrollback) → nvim に流す。
+        bind "[" { SwitchToMode "Scroll"; }
+
+        // --- Tab 操作 ---
+        bind "t" { NewTab; SwitchToMode "Normal"; }              // WezTerm: SUPER t
+        bind "Q" { CloseTab; SwitchToMode "Normal"; }             // WezTerm: SUPER w
+        bind "{" { MoveTab "Left"; SwitchToMode "Normal"; }       // WezTerm: LEADER {
+        bind "}" { MoveTab "Right"; SwitchToMode "Normal"; }      // WezTerm: LEADER }
+        bind "n" { GoToNextTab; SwitchToMode "Normal"; }          // WezTerm: CTRL Tab の代替
+        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }      // WezTerm: CTRL SHIFT Tab の代替
+
+        // --- Tab 直接切替 (WezTerm: SUPER 1..9) ---
+        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
+
+        // --- Workspace 相当 = Zellij session (WezTerm: LEADER w / LEADER W) ---
+        // session-manager 内で既存 session への切替・新規作成・リネームができる。
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "Normal"
+        }
+        bind "W" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "Normal"
+        }
+
+        // --- Session からデタッチ ---
+        bind "D" { Detach; }
+    }
+
+    //=================================================================
+    // Resize モード (WezTerm resize_pane key table 相当)
+    // hjkl で拡大 / HJKL で縮小 / Enter または Esc で抜ける
+    //=================================================================
+    resize {
+        bind "h" "Left"  { Resize "Increase Left"; }
+        bind "j" "Down"  { Resize "Increase Down"; }
+        bind "k" "Up"    { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+        bind "=" "+" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
+    }
+
+    //=================================================================
+    // Pane モード (WezTerm activate_pane key table 相当)
+    //=================================================================
+    pane {
+        bind "h" "Left"  { MoveFocus "Left"; }
+        bind "j" "Down"  { MoveFocus "Down"; }
+        bind "k" "Up"    { MoveFocus "Up"; }
+        bind "l" "Right" { MoveFocus "Right"; }
+        bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "r" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+        bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0; }
+    }
+
+    //=================================================================
+    // Scroll / Search モード (WezTerm copy_mode の代替)
+    //=================================================================
+    scroll {
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl f" "PageDown" { PageScrollDown; }
+        bind "Ctrl b" "PageUp" { PageScrollUp; }
+        bind "Ctrl d" { HalfPageScrollDown; }
+        bind "Ctrl u" { HalfPageScrollUp; }
+        bind "G" { ScrollToBottom; }
+        bind "[" { ScrollToPreviousPrompt; }
+        bind "]" { ScrollToNextPrompt; }
+        // vim で本格的に選択・コピーしたい時はこれ ($EDITOR = nvim)
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        // 検索 (WezTerm copy_mode の / 相当)
+        bind "/" "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "y" { Copy; }
+        bind "q" { ScrollToBottom; SwitchToMode "Normal"; }
+    }
+
+    search {
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl f" "PageDown" { PageScrollDown; }
+        bind "Ctrl b" "PageUp" { PageScrollUp; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+        bind "c" { SearchToggleOption "CaseSensitivity"; }
+        bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "y" { Copy; }
+    }
+
+    entersearch {
+        bind "Ctrl c" "Esc" { SwitchToMode "Scroll"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+
+    renametab {
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
+    }
+
+    renamepane {
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenamePane; SwitchToMode "Normal"; }
+    }
+
+    //=================================================================
+    // Alt 系 (leader を押さない直接操作。LEADER 配下と併記)
+    // hterm は Alt を ESC プレフィックスで送るのでそのまま届く。
+    //=================================================================
+    shared_except "locked" {
+        // Pane 分割 (WezTerm の方向定義に合わせて d = 下 / r = 右)
+        bind "Alt d" { NewPane "Down"; }
+        bind "Alt r" { NewPane "Right"; }
         bind "Alt x" { CloseFocus; }
-        
-        // Pane移動（Wezterm互換: LEADER + hjkl）
-        bind "Alt h" { MoveFocusOrTab "Left"; }
-        bind "Alt j" { MoveFocusOrTab "Down"; }
-        bind "Alt k" { MoveFocusOrTab "Up"; }
-        bind "Alt l" { MoveFocusOrTab "Right"; }
-        
-        // Paneズーム表示（Wezterm互換: LEADER + z）
+
+        // Pane 移動 (端まで行ったらタブを跨ぐ)
+        bind "Alt h" "Alt Left"  { MoveFocusOrTab "Left"; }
+        bind "Alt j" "Alt Down"  { MoveFocus "Down"; }
+        bind "Alt k" "Alt Up"    { MoveFocus "Up"; }
+        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+
         bind "Alt z" { ToggleFocusFullscreen; }
-        
-        // タブ操作
+        bind "Alt f" { ToggleFloatingPanes; }
+
+        // Tab 操作
         bind "Alt c" { NewTab; }
         bind "Alt q" { CloseTab; }
         bind "Alt w" { GoToPreviousTab; }
         bind "Alt t" { GoToNextTab; }
+
+        // Tab 直接切替 (WezTerm SUPER 1..9 の代替)
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+
+        // Pane サイズ (WezTerm CTRL +/- はフォントサイズだが、端末側の機能なので Zellij では pane リサイズに割当)
+        bind "Alt =" "Alt +" { Resize "Increase"; }
+        bind "Alt -" { Resize "Decrease"; }
+
+        // 誤爆防止用の Locked モード
+        bind "Alt g" { SwitchToMode "Locked"; }
+    }
+
+    // 各モードは Enter / Esc で Normal に戻る (WezTerm resize_pane の Enter = PopKeyTable 相当)
+    shared_except "normal" "locked" {
+        bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
 }
 
-// テーマ設定
+// マウス選択でそのままクリップボードへ (WezTerm SUPER c の代替)
+copy_on_select true
+
+// WezTerm: config.scrollback_lines = 90000 に合わせる
+scroll_buffer_size 90000
+
+// Scroll モードの "e" (EditScrollback) で開くエディタ。$EDITOR 未設定でも動くよう明示する。
+scrollback_editor "/usr/bin/nvim"
+
 theme "default"
 
-// レイアウト設定
 default_layout "compact"
 default_tab_template {
     pane size=1 borderless=true {
