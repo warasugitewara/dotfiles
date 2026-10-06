@@ -64,7 +64,7 @@ def llm [...args: string] {
 
 # ================================================
 # ai - Aider + llm-router
-#   オンライン: Claude Sonnet via Headroom Proxy (192.168.1.30:8787)
+#   オンライン: Claude Sonnet via Headroom Proxy (localhost:8787)
 #              OAuth トークンを ~/.claude/.credentials.json から自動取得
 #   オフライン: deepseek-r1:8b via local Ollama
 #   設定: ~/llm-router/.env

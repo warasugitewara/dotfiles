@@ -45,11 +45,6 @@ def calc-with-precision [expr: string, --precision (-p): int = 15] {
 }
 
 # ================================================
-# Claude Headroom proxy (192.168.1.30:8787)
-# ================================================
-$env.ANTHROPIC_BASE_URL = "http://192.168.1.30:8787"
-
-# ================================================
 # btop4win path (Windows のみ。Linux/macOS では native btop を使用)
 # ================================================
 if $nu.os-info.name == "windows" {
@@ -57,6 +52,20 @@ if $nu.os-info.name == "windows" {
         $env.PATH
         | split row (char esep)
         | append 'C:\Users\waras\AppData\Local\Microsoft\WinGet\Packages\aristocratos.btop4win_Microsoft.Winget.Source_8wekyb3d8bbwe\btop4win'
+        | uniq
+    )
+}
+
+# ================================================
+# ユーザー領域の実行ファイル (Linux / macOS)
+#   claude (ネイティブ版) と uv tool (headroom など) は ~/.local/bin に入る。
+#   WezTerm から nu を直接起動するとログインシェルの PATH を通らないので、ここで足す
+# ================================================
+if $nu.os-info.name != "windows" {
+    $env.PATH = (
+        $env.PATH
+        | split row (char esep)
+        | prepend ($nu.home-dir | path join ".local" "bin")
         | uniq
     )
 }
