@@ -185,9 +185,11 @@ alias vim = nvim
 alias nivm = nvim
 
 # Claude Code
-alias claude = headroom wrap claude
 alias cc = headroom wrap claude
 alias cr = headroom wrap claude --resume
+
+# zellij
+alias zj = zellij
 
 # stable AI
 use modules/imagegen.nu *
