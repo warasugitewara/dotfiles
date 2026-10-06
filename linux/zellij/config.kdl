@@ -245,6 +245,12 @@ default_shell "nu"
 // これが true だと初回起動でフローティングペインがフォーカスを奪いキーバインドが効かない。
 show_startup_tips false
 
+// 新バージョン初回起動のリリースノート (about プラグイン) も出さない。
+// この画面で「次回から表示しない」を選ぶと Zellij が設定ファイル全体を書き戻し、
+// コメントが消えた自動生成版で上書きする (元は config.kdl.bak に退避される)。
+// 0.45.1 で実際に発生したため、画面自体を出さずに書き戻しの契機を断つ。
+show_release_notes false
+
 // WezTerm: config.scrollback_lines = 90000 に合わせる
 scroll_buffer_size 90000
 
