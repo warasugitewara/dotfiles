@@ -1,2 +1,4 @@
 [Hotkey/TriggerKeys]
+# Chromebook (Moonlight) からは grave キーの位置が合わず届かないため Ctrl+Space を追加
 0=Alt+grave
+1=Control+space
