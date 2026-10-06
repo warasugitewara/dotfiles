@@ -102,6 +102,8 @@ Zellij の設定では解決できない。
 
 | 項目 | 値 | 由来 |
 |---|---|---|
+| `default_shell` | `nu` | WezTerm `default_prog = { "nu" }` 相当。**これが無いとペイン内が bash になる** |
+| `show_startup_tips` | `false` | 起動時のウェルカム画面を抑止（フォーカスを奪いキーバインドが効かなくなる） |
 | `scroll_buffer_size` | 90000 | WezTerm `scrollback_lines = 90000` に合わせた |
 | `scrollback_editor` | `/usr/bin/nvim` | `$EDITOR` 未設定でも `EditScrollback` が動くよう明示 |
 | `copy_on_select` | `true` | `SUPER c` の代替 |
@@ -117,8 +119,18 @@ zellij attach <name>        # 既存セッションに接続
 zellij action rename-session <name>   # セッション（= workspace）のリネーム
 ```
 
-初回起動時に "About Zellij" のフローティングペインが出る場合は `Esc` で閉じる
-（表示中はキー入力が全てそのプラグインに吸われる）。
+## ⚠️ Zellij の UI から設定を変えないこと
+
+Zellij 内の `configuration` プラグインやウェルカム画面から設定を変更すると、
+**Zellij が `config.kdl` を自前でシリアライズして全面上書きする**（元ファイルは
+`config.kdl.bak` に退避される）。このときキーバインドのシリアライズが壊れ、
+`scroll` モードの全アクションが 1 つのバインドに合流する等の破損が起きる（2026-10-06 に実際に発生）。
+
+設定変更は必ず `config.kdl` を直接編集する。壊れた場合は dotfiles から復元する。
+
+```bash
+git -C ~/dotfiles checkout -- linux/zellij/config.kdl
+```
 
 ## 設定ファイル
 
