@@ -1,0 +1,16 @@
+# ~/.bash_profile の追記セクション (Arch Linux 版)
+# このセクションを ~/.bash_profile の末尾に追記してください。
+#
+# SSH ログイン時だけ nushell に切り替える。
+# chsh でログインシェル自体を nu にしないのは、greetd がセッションコマンドを
+# ログインシェル経由の POSIX スニペット (. /etc/profile; exec start-hyprland) で実行するため。
+# nu だと構文エラーになり Hyprland / Sunshine が起動しなくなる。
+#
+#   - 対話シェルのみ: greetd のセッション起動や rsync / scp / ssh host cmd は非対話なので bash のまま通る
+#   - SSH_CONNECTION 条件: tty からのコンソールログインは bash を残し、復旧手段にする
+#   - NU_LAUNCHED: nu から bash を起動したときの往復ループ防止
+if [[ $- == *i* && -n $SSH_CONNECTION && -z $NU_LAUNCHED ]] \
+   && command -v nu >/dev/null; then
+    export NU_LAUNCHED=1
+    exec nu
+fi

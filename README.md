@@ -155,6 +155,7 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
     ├── Brewfile           # Homebrew パッケージリスト (Debian)
     ├── bashrc.xdg-config  # XDG 統合 bashrc (Debian)
     ├── bashrc.arch        # XDG 統合 bashrc (Arch / pacman・GraalVM・uv)
+    ├── bash_profile.arch  # SSH ログイン時だけ nushell に切り替える (Arch)
     ├── SETUP.md           # 環境構築ガイド
     ├── zellij/            # Zellij 設定 (config.kdl)
     ├── hypr/              # Hyprland 設定 (hyprland.lua / Wayland・Arch)
@@ -163,7 +164,6 @@ cat ~/.config/linux/bashrc.xdg-config >> ~/.bashrc && source ~/.bashrc
     ├── gtk-4.0/           # GTK4 テーマ設定 (ダークモード)
     ├── chrome-flags.conf  # Chrome 起動フラグ (Wayland ネイティブ + IME)
     ├── greetd/            # greetd + tuigreet (Hyprland 自動起動)
-    ├── chrony/            # chrony (NTP client / OPNsense + NICT stratum-1)
     ├── waypaper/          # 壁紙 GUI + linux-wallpaperengine (設定のみ)
     └── bin/               # 自作スクリプト (win-boot: 次回だけ Windows で起動)
 ```
