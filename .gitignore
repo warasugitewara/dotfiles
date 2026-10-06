@@ -17,6 +17,10 @@ powershell/PowerShell/
 # このリポは public なので絶対に追跡しないこと。
 nushell/env.local.nu
 
+# git の identity 等マシンローカル設定。git/config が include する。
+# このリポは public なので絶対に追跡しないこと。
+git/config.local
+
 # Runtime directories
 .local/
 .cache/

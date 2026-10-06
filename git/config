@@ -40,3 +40,9 @@
     unstage = reset HEAD --
     last = log -1 HEAD
     visual = log --graph --oneline --all
+
+# マシンローカルの設定 (identity 等)。git/config.local は .gitignore 済みで追跡しない。
+# このリポは public なのでメールアドレス等は必ず config.local 側に置くこと。
+# 相対パスはこのファイルのディレクトリ基準なので ~/.config/git/config.local を読む。
+[include]
+    path = config.local
