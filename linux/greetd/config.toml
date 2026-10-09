@@ -10,5 +10,5 @@ vt = 1
 # --remember-session  : 前回のセッションを記憶
 # --asterisks         : パスワード入力を * で表示
 # --time              : 時計を表示
-command = "tuigreet --time --remember --remember-session --asterisks --cmd Hyprland"
+command = "tuigreet --time --remember --remember-session --asterisks --cmd start-hyprland"
 user = "greeter"
