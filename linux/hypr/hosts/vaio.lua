@@ -39,10 +39,12 @@ end)
 -- Adapta Nokto 系 (WezTerm の #1a1a1a / Neovim 透過 と揃える)。
 -- HD 4400 は blur / shadow が重いので使わず、角丸・グラデーション枠・アニメで見せる
 
-hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_THEME", "Bibata-Modern-Ice")
-hl.env("HYPRCURSOR_SIZE", "24")
+-- 足立レイのカーソル (~/.local/share/icons/AdachiRei)。48x48 のドット絵しか持たないので 48 固定。
+-- テーマが無ければ ~/.icons/default 経由で Bibata-Modern-Ice に落ちる
+hl.env("XCURSOR_THEME", "AdachiRei")
+hl.env("XCURSOR_SIZE", "48")
+hl.env("HYPRCURSOR_THEME", "AdachiRei")
+hl.env("HYPRCURSOR_SIZE", "48")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("GDK_BACKEND", "wayland,x11")
