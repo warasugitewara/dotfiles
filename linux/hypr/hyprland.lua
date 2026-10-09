@@ -403,3 +403,16 @@ hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.bind("SUPER+RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER+B", hl.dsp.exec_cmd("vivaldi"))
+
+-- ホスト別の差分 (hosts/<hostname>.lua) があれば最後に読み込む。
+-- 共通設定を上書きするため、必ずこのファイルの末尾に置く。
+do
+    local f = io.open("/etc/hostname")
+    local host = f and f:read("*l")
+    if f then f:close() end
+    local hostFile = host and io.open(os.getenv("HOME") .. "/.config/hypr/hosts/" .. host .. ".lua")
+    if hostFile then
+        hostFile:close()
+        require("hosts." .. host)
+    end
+end
