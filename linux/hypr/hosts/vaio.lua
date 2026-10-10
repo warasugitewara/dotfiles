@@ -23,13 +23,14 @@ hl.config({
 -- HD 4400 (Haswell) の VA-API は i965。共通設定の nvidia を上書きする。
 hl.env("LIBVA_DRIVER_NAME", "i965")
 
--- 共通の自動起動に加えて、アイドル管理・通知・壁紙・音量 OSD・認証エージェントを起動する
+-- 共通の自動起動に加えて、アイドル管理・通知・壁紙・音量 OSD・認証エージェント・Bluetooth のトレイを起動する
 hl.on("hyprland.start", function ()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("swaync")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("swayosd-server")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    hl.exec_cmd("blueman-applet")
 end)
 
 
