@@ -385,7 +385,10 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 -- 自動起動
 hl.on("hyprland.start", function ()
-    hl.exec_cmd("waybar")
+    -- waybar は落ちることがある (設定の再読み込み後に mpris モジュールが SEGV するなど)。
+    -- systemd のユーザーユニットとして起動し、異常終了したら自動で立ち上げ直す。
+    -- 設定を変えたあとは `systemctl --user restart waybar-session` で起動し直す (SIGUSR2 の再読み込みは使わない)
+    hl.exec_cmd("sh -c 'systemctl --user stop waybar-session.service 2>/dev/null; systemd-run --user --quiet --collect --unit=waybar-session -p Restart=on-failure -p RestartSec=1 -p StartLimitIntervalSec=30 -p StartLimitBurst=10 waybar'")
     hl.exec_cmd("mako")
     hl.exec_cmd("fcitx5 -d")
     hl.exec_cmd("nm-applet --indicator")
