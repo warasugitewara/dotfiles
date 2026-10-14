@@ -21,6 +21,22 @@ config.set_environment_variables = {
 	XDG_CACHE_HOME = home .. sep .. ".cache",
 }
 
+-- wezterm connect 経由の mux-server はログインシェルを通らず LANG が空になるため、
+-- 未設定時のみ /etc/locale.conf から補う（Windows ではファイルが無いので何もしない）
+if not os.getenv("LANG") then
+	local f = io.open("/etc/locale.conf", "r")
+	if f then
+		for line in f:lines() do
+			local lang = line:match("^LANG=\"?([^\"]+)\"?$")
+			if lang then
+				config.set_environment_variables.LANG = lang
+				break
+			end
+		end
+		f:close()
+	end
+end
+
 ----------------------------------------------------
 -- Tab
 ----------------------------------------------------
