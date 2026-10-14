@@ -70,6 +70,18 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 ----------------------------------------------------
+-- SSH domain (リモートの wezterm-mux-server を使用)
+----------------------------------------------------
+config.ssh_domains = {
+	{
+		name = "dev",
+		remote_address = "dev", -- ~/.ssh/config の Host dev を解決
+		multiplexing = "WezTerm",
+		assume_shell = "Posix",
+	},
+}
+
+----------------------------------------------------
 -- keybinds
 ----------------------------------------------------
 config.disable_default_key_bindings = true
