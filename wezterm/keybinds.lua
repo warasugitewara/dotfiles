@@ -71,6 +71,8 @@ return {
 		{ key = "c", mods = "SUPER", action = act.CopyTo("Clipboard") },
 		-- 貼り付け
 		{ key = "v", mods = "SUPER", action = act.PasteFrom("Clipboard") },
+		{ key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
+		{ key = "v", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
 
 		-- Pane作成 leader + r or d
 		{ key = "d", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
