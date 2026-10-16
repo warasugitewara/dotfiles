@@ -86,14 +86,24 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 ----------------------------------------------------
--- SSH domain (リモートの wezterm-mux-server を使用)
+-- SSH domain
 ----------------------------------------------------
+-- Windows は公式 stable (20240203 / codec 42) しか無く、Arch の git スナップショット
+-- (codec 45) と mux プロトコルが噛み合わないため素の SSH で繋ぐ。
+-- Arch 同士 (VAIO ↔ dev) は pacman で版が揃うので mux-server を使う。
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
 config.ssh_domains = {
 	{
 		name = "dev",
 		remote_address = "dev", -- ~/.ssh/config の Host dev を解決
-		multiplexing = "WezTerm",
+		multiplexing = is_windows and "None" or "WezTerm",
 		assume_shell = "Posix",
+		-- set_environment_variables の XDG_* (Windows パス) が SSH ペインにも注入され、
+		-- リモートの nushell が xdg_config_home_invalid を出すため外してから起動する。
+		-- Linux の XDG デフォルトに任せれば ~/.config/nushell が読まれる。
+		-- (default_prog は multiplexing = "None" のときのみ有効)
+		default_prog = { "env", "-u", "XDG_CONFIG_HOME", "-u", "XDG_DATA_HOME", "-u", "XDG_CACHE_HOME", "nu" },
 	},
 }
 
