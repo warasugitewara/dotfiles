@@ -102,8 +102,20 @@ config.ssh_domains = {
 		-- set_environment_variables の XDG_* (Windows パス) が SSH ペインにも注入され、
 		-- リモートの nushell が xdg_config_home_invalid を出すため外してから起動する。
 		-- Linux の XDG デフォルトに任せれば ~/.config/nushell が読まれる。
+		-- LANG は sshd が pam_env で /etc/locale.conf を読まず、ログインシェルも
+		-- 経由しないため届かない。dev の /etc/locale.conf と同じ値を明示する。
 		-- (default_prog は multiplexing = "None" のときのみ有効)
-		default_prog = { "env", "-u", "XDG_CONFIG_HOME", "-u", "XDG_DATA_HOME", "-u", "XDG_CACHE_HOME", "nu" },
+		default_prog = {
+			"env",
+			"-u",
+			"XDG_CONFIG_HOME",
+			"-u",
+			"XDG_DATA_HOME",
+			"-u",
+			"XDG_CACHE_HOME",
+			"LANG=ja_JP.UTF-8",
+			"nu",
+		},
 	},
 }
 
