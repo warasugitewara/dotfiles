@@ -7,15 +7,15 @@ hl.monitor({
     output   = "eDP-1",
     mode     = "1920x1080@60",
     position = "0x0",
-    scale    = "1.25",
+    scale    = "1.2",
 })
 
 -- 外付け 15.6" FHD (横置き、内蔵の右)。共通設定の HDMI-A-1 (縦置き・0x0) を上書きする。
--- 内蔵は scale 1.25 なので論理幅は 1920 / 1.25 = 1536
+-- 内蔵は scale 1.2 なので論理幅は 1920 / 1.2 = 1600
 hl.monitor({
     output    = "HDMI-A-1",
     mode      = "1920x1080@60",
-    position  = "1536x0",
+    position  = "1600x0",
     scale     = "1",
     transform = 0,
 })
@@ -107,3 +107,11 @@ for _, cls in ipairs({ "pavucontrol", "org.pulseaudio.pavucontrol", "nwg-look", 
         center = true,
     })
 end
+
+-- Moonlight の配信窓は SDL3 (sdl2-compat) が Vulkan → EGL へ窓を作り直す際に全画面要求を失うため、Hyprland 側で全画面にする。
+-- タイトルが "<ホスト名> - Moonlight" の配信窓だけが対象。UI 窓 ("Moonlight") は対象外
+hl.window_rule({
+    name       = "moonlight-stream-fullscreen",
+    match      = { class = "^com\\.moonlight_stream\\.Moonlight$", title = ".+ - Moonlight$" },
+    fullscreen = true,
+})
