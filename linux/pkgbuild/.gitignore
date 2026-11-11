@@ -1,0 +1,5 @@
+# makepkg のビルド生成物・ダウンロード物
+*/src/
+*/pkg/
+*.tar.gz
+*.pkg.tar.zst

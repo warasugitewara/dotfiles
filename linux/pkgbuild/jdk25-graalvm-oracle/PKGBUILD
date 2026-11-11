@@ -1,0 +1,51 @@
+# Oracle GraalVM for JDK 25 (LTS) を pacman パッケージ化するための自作 PKGBUILD。
+# AUR の jdk25-graalvm-bin は Innovation 版 (25i4 / JDK 25.0.4.1) でベース JDK が古いため使わない。
+#
+# 更新手順: pkgver と sha256sums を書き換えて `makepkg -si`。
+#   sha256 は Oracle の配布元レスポンスヘッダー opc-meta-content-sha256 で確認できる:
+#   curl -sSIL <source URL> | grep -i opc-meta-content-sha256
+# 既定の Java にする: sudo archlinux-java set java-25-graalvm-oracle
+
+pkgname=jdk25-graalvm-oracle
+pkgver=25.0.5.0.3
+pkgrel=1
+pkgdesc='Oracle GraalVM for JDK 25 (LTS)'
+arch=('x86_64')
+url='https://www.graalvm.org/'
+license=('LicenseRef-GFTC')
+depends=(
+  'java-runtime-common'
+  'java-environment-common'
+  'glibc'
+  'zlib'
+  'freetype2'
+)
+optdepends=(
+  'alsa-lib: サウンド'
+  'libx11: AWT'
+  'libxext: AWT'
+  'libxi: AWT'
+  'libxrender: AWT'
+  'libxtst: AWT'
+)
+provides=(
+  'java-runtime=25'
+  'java-runtime-headless=25'
+  'java-environment=25'
+)
+options=('!strip' '!debug' 'staticlibs')
+source=("https://gds.oracle.com/download/graal/25/archive/graalvm-jdk-${pkgver}_linux-x64_bin.tar.gz")
+sha256sums=('b907d3bdf1eabff6d2b3fcb93ccd44004a0eee66730a28ace0a5b5f5cb2ac46a')
+
+_jvmdir=/usr/lib/jvm/java-25-graalvm-oracle
+
+package() {
+  local _srcroot
+  _srcroot=$(find "${srcdir}" -mindepth 1 -maxdepth 1 -type d -name 'graalvm-jdk-*' | head -n 1)
+  [[ -n "${_srcroot}" ]] || { echo 'GraalVM の展開ディレクトリが見つからない' >&2; return 1; }
+
+  install -dm755 "${pkgdir}${_jvmdir}"
+  cp -a "${_srcroot}"/. "${pkgdir}${_jvmdir}/"
+
+  install -Dm644 "${_srcroot}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}
