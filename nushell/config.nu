@@ -141,12 +141,14 @@ def Switch-Net [mode: string] {
 }
 
 # ================================================
-# btop - Windows では btop4win、Linux/macOS では native btop を呼ぶ
+# btop - Windows では btop4win (LHM 版)、Linux/macOS では native btop を呼ぶ
 #   (^ で外部コマンドを強制し、この def 自身への再帰を回避)
+#   LHM 版は GPU/温度取得のため requireAdministrator。Nushell からは
+#   直接起動できない (os error 740) ので gsudo 経由で同じペインに昇格起動する
 # ================================================
 def --wrapped btop [...rest] {
     if $nu.os-info.name == "windows" {
-        ^btop4win ...$rest
+        ^gsudo ($env.LOCALAPPDATA | path join 'Programs' 'btop4win-LHM' 'btop4win.exe') ...$rest
     } else {
         ^btop ...$rest
     }
@@ -161,6 +163,19 @@ def --wrapped nano [...rest] {
     } else {
         ^nano ...$rest
     }
+}
+
+# ================================================
+# velocity start - 自分専用のローカル Velocity を起動 (Windows のみ)
+#   実体: ~/velocity-local/start.cmd (127.0.0.1:25565 → waras-mc)
+#   止めるときは Velocity のコンソールで end
+# ================================================
+def "velocity start" [] {
+    let script = ($nu.home-dir | path join "velocity-local" "start.cmd")
+    if not ($script | path exists) {
+        error make { msg: $"($script) が見つかりません" }
+    }
+    ^cmd.exe /c $script
 }
 
 
