@@ -211,3 +211,4 @@ use modules/imagegen.nu *
 
 # Minecraft ワールドの PC 間同期（restic、要 env.local.nu の MC_SYNC_*）
 use modules/mc.nu *
+use modules/sky.nu *
