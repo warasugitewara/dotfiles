@@ -4,6 +4,7 @@
 #   sky stop   : セーブして停止 → NAS に restic でバックアップ
 #   sky status : 起動中か・誰がいるか
 #   sky cmd    : RCON でコマンドを送る（例: sky cmd list）
+#   sky backup : 動いたまま NAS にバックアップ（予約タスクが 3 時間おきに実行。記録は ~/mc-servers/sky-backup.log）
 #   バックアップ先は mc.nu と同じリポジトリ（$env.MC_SYNC_DIR/restic）。タグ server:atm10sky
 # ================================================
 
@@ -59,17 +60,49 @@ export def "sky stop" [
         print "停止しました"
     }
     if $no_backup { return }
+    sky-restic
+}
 
+# 動いたまま NAS にバックアップする（保存を止めて書き出し → restic → 保存を戻す）
+#   予約タスク「ATM10 Sky backup」が 3 時間おきに --if-running 付きで呼ぶ
+export def "sky backup" [
+    --if-running   # 止まっていたら何もしない（止めたときは sky stop が取っているので）
+] {
+    if (sky-pids | is-empty) {
+        if not $if_running { sky-restic }
+        return
+    }
+    sky-rcon save-off | ignore
+    try {
+        sky-rcon save-all flush | ignore
+        sky-restic
+    } catch {|e|
+        sky-rcon save-on | ignore
+        sky-log $"失敗: ($e.msg)"
+        error make { msg: $"バックアップに失敗しました: ($e.msg)" }
+    }
+    sky-rcon save-on | ignore
+}
+
+def sky-log [msg: string] {
+    $"(date now | format date '%Y-%m-%d %H:%M:%S') ($msg)\n" | save --append ($SKY_DIR | path dirname | path join "sky-backup.log")
+}
+
+# world を NAS の restic に送る。残すのは直近 30 回 ＋ 30 日分の各日最後の 1 つ
+def sky-restic [] {
     let repo = ($env.MC_SYNC_DIR? | default "")
     let pass = ($env.MC_SYNC_PASSWORD_FILE? | default "")
     if ($repo | is-empty) or not ($repo | path exists) or ($pass | is-empty) {
         print "NAS かパスワードファイルに届かないので、バックアップは飛ばしました"
+        sky-log "飛ばした: NAS かパスワードファイルに届かない"
         return
     }
     let world = ($SKY_DIR | path join "world")
     if not ($world | path exists) { print "world がまだありません"; return }
+    let r = ($repo | path join "restic")
     let host = (sys host | get hostname)
-    ^restic --repo ($repo | path join "restic") --password-file $pass backup $world --host $host --tag server:atm10sky
-    ^restic --repo ($repo | path join "restic") --password-file $pass forget --tag server:atm10sky --keep-last 30 --quiet
+    ^restic --repo $r --password-file $pass backup $world --host $host --tag server:atm10sky --exclude session.lock --quiet   # session.lock は鯖が掴んでいて読めない（中身は空の目印）
+    ^restic --repo $r --password-file $pass forget --tag server:atm10sky --keep-last 30 --keep-daily 30 --prune --quiet
+    sky-log "完了"
     print "バックアップ完了"
 }
